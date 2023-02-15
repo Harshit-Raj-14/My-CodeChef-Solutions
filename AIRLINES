@@ -1,0 +1,25 @@
+import java.util.*;
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int x=sc.nextInt();
+		    int y=sc.nextInt();
+		    int z=sc.nextInt();
+		    int tpc = 10*x;   //total passenger capacity
+		    if(tpc>y) System.out.println(y*z);
+		    else System.out.println(tpc*z);
+		}
+	}
+}
+
+LOGIC- 10 aeroplanes
+capacity - x
+y people book seat
+z rs per ticket
+
+
+link - https://www.codechef.com/START77D/problems/AIRLINES
