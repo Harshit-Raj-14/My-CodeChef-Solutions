@@ -1,0 +1,36 @@
+import java.util.*;
+
+class Codechef{
+	public static void main(String args[]){
+		Scanner sc= new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+			int a=sc.nextInt();
+			int b=sc.nextInt();
+			int c=sc.nextInt();
+			int min = Math.min(b,c);	//b and c fights
+			b-=min;
+			c-=min;
+			a-= Math.min(a,b); //a and b fights
+			a-= Math.min(a,c); //a and c fights 
+
+			if(a>0) System.out.println("YES");
+			else System.out.println("NO");
+		}
+	}
+}
+
+
+/*
+ * We want anna(a) to have +ve health a the end of battle.
+ * for all cases we have 3!=6 === six permutation(six possible tournaments).
+ * we just need to find out whetehr one case occus or not.
+ * So, we just check for the most optimal case where there is highest chance for anna to end up with posive health.
+ * Ist match - b and c fights
+ * IInd and III match - anna fights with b and c in any order
+ * Now just check for that +ve sign
+ */
+
+
+
+LINK - https://www.codechef.com/problems/TEKKEN
