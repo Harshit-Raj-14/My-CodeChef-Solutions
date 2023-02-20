@@ -1,0 +1,50 @@
+import java.util.*;
+
+class Codechef {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t-->0){
+			int alen=sc.nextInt();
+			int blen=sc.nextInt();
+			String a=sc.next();
+			String b=sc.next();
+			String c=a+b;
+
+			if(c.length()==2){		//edge case
+				System.out.println("YES");
+				return;
+			}
+		
+			int []count = new int[26];
+			for(int i=0;i<c.length();i++){
+				count[(int)c.charAt(i) - 97]++;		//making a count array of chars in string indexed from 0
+			}
+
+			int oneodd=0;
+			for(int i=0;i<count.length;i++){
+				if(count[i]%2!=0) oneodd++;	
+			}
+	
+			if(oneodd>1) System.out.println("NO");
+			else System.out.println("YES");
+		}
+			sc.close();	
+	}
+}
+
+
+/*
+ * a and b two string.
+ * a1 and b1 are its possible rearrangement in any form does not matter. we have all freedom.
+ * 
+ * Case I: a1+b1 = 2(no. of each character) => when length of string is even =>palindrome
+ * 
+ * Case II: a1+b1 length is odd. So if one odd character then palindrome still possible. eg: aba
+ * But if oneodd>1 then it cannot be palindrome
+ * 
+ * Rememerb: ther eis an edgecase : only two letters in string : a 1char and b 1char eg: zx and xz is palindrome
+ * But this would result in oddone>1 so write a seperate case for it 
+ * 
+ */
