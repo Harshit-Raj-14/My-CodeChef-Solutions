@@ -1,3 +1,9 @@
+/* JAVA ACCEPTED SOLUTION */
+
+
+
+
+/* FAILED SOLUTION ON TESTCASE 2 */
 import java.util.*;
 
 class Codechef {
@@ -48,6 +54,10 @@ class Codechef {
  * But this would result in oddone>1 so write a seperate case for it 
  * 
  */
+ 
+ REASON FOR FAILURE : Read the question proerly it is written we have to see whether first arrangign A and B and then concatenating it gives palidnrome or not. 
+ In the above solution we have first concatenated and then checked.
+ Simple, solution would be to check both a and b seperately and then concatenate and then check.
  
  
  link - https://www.codechef.com/problems/CONCATPAL
