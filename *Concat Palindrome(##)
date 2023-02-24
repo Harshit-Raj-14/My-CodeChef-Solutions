@@ -12,19 +12,19 @@ class Codechef {
 			String a=sc.next();
 			String b=sc.next();
             
-            if(al<bl){  //we want our first stirng to always be the largest so swap strings if bl>al
+            if(al<bl){  //we want our first stirng to always be the largest so swap strings if bl>al.   //Reason:so tha tthe longest is of odd length and so will have the odd char
                 String temp=a;
-                a=new String(b);
-                b=new String(temp);           
+                a=b;
+                b=temp;           
             }
 
             int []count = new int[26];
 			for(int i=0;i<a.length();i++){
-				count[(int)a.charAt(i) - 97]++;		//making a count array of chars in string indexed from 0 and adding number of chars from a
+				count[(int)a.charAt(i) - 'a']++;		//making a count array of chars in string indexed from 0 and adding number of chars from a
 			}
 
             for(int i=0;i<b.length();i++){
-                count[(int)b.charAt(i) - 'a']++;    //adding number of chars from b
+                count[(int)b.charAt(i) - 'a']--;    //subtracting number of chars from b
             }
 
             int odd =0;
@@ -38,7 +38,22 @@ class Codechef {
         }
     }
 }     
+  
+/*
+ * Storing the frequency of string a in count[] and then decreasing the frequency from the same count[] from stirng b.
+ * 
+ * If the values are negative for any character then that means that character was not present in both strings, because remember b here is the smaller string.
+ * So no testcase like: aa aaaaaa can give negative value.
+ * 
+ * since a length> b length; this means that a will always have that one unique odd char whose count cna be checked later
+ * By subtracting the char's from string b in count we make sure that there are no unique chars in b that are not availble in a
+ * if we do not do this and just add up everything and check whewther they are evne or not
+ * we might not catch : aabbcc dd. this will not yield a palindrome on combination
+ * 
+ * Just check if the number of occurrence is even or not if more than one element has odd occurrence then print "NO" else print "YES"
+ */
             
+                     
 	    
 
 /* FAILED SOLUTION ON TESTCASE 2 */
