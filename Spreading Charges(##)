@@ -1,0 +1,68 @@
+import java.util.*;
+
+class Codechef {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while (t-- > 0) {
+			int n = sc.nextInt();
+			String s = sc.next();
+			char c[] = s.toCharArray();
+			int i = 0;
+			int countNeutral = 0;
+			while (i < n && c[i] == '0') i++;		//count no. of first zeroes before any charges
+			if (i == n) System.out.println(i);	//if count of first zeroes == length of string, all neutral
+			else {	//first charge found
+				while (i < n) {
+					int j = i + 1;
+					while (j < n && c[j] == '0') {
+						j++;
+					}
+					if (j < n && c[j] != c[i] && (j - i + 1) % 2 == 1)	//second different charge found, third case odd or even
+						countNeutral++;
+					i = j;
+				}
+				System.out.println(countNeutral);
+			}
+		}
+		sc.close();
+	}
+}
+
+/*
+ * Possible charges and '0's combinations are :-
+ * 1 ) +ve .....000000.... +ve or +ve000000000 or 0000000+ve
+ * 2 ) - ve .....000000.... - ve or -ve000000000 or 0000000-ve
+ * 3 ) +ve .....000000.... - ve or vice versa
+ * 
+ * After infinite time in first two combinations all zeroes will be charged
+ * 
+ * As for the third case it will depend whether the no of zeroes are odd or even
+ * in the middle
+ * 
+ * Since, we only need to count occurences of zero after infinite time, we only
+ * need to worry about third case since the first two cases will yield 0.
+ * 
+ * OBSERVATION:-
+ * If opposite charges have odd number of neutral than their will be one neutral
+ * left has both opposite charges as neighbour so this will remain neutral.
+ * example :
+ * +00000-
+ * this string will change like this,
+ * ++000--
+ * +++0---
+ * this will be the string after infinite time.
+ * 
+ * but if opposite charges have even number of neutrals between them then we
+ * can't have neutral at last ,
+ * example :
+ * +0000- this string will change like this,
+ * ++00--
+ * +++---
+ * this will be the string after infinite time
+ */
+ 
+ 
+ 
+ link - https://www.codechef.com/problems/CHRGES
