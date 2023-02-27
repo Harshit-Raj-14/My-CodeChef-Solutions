@@ -1,0 +1,58 @@
+import java.util.*;
+
+class Codechef {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while (t-- > 0) {
+			int arr[]=new int[3];
+			for(int i=0;i<arr.length;i++){
+				arr[i]=sc.nextInt();
+			}
+			
+			if((arr[0]%2==1 & arr[1]%2==1 & arr[2]%2==1) || (arr[0]%2==0 & arr[1]%2==0 & arr[2]%2==0)){	//if all 3 are odd or even we are sure that they can be ade equal
+				Arrays.sort(arr);
+				System.out.println((arr[2]+arr[1])/2 - arr[0]);
+			}
+			else System.out.println(-1);
+		}
+		sc.close();
+	}
+}
+
+/*
+ * One can easliy see that if the difference between two no if odd then it's impossible to make them equal in any no of moves.
+ * Becuase subtracting 1 and adding 1 always causes a difference of 2.
+ * It is possible to make all 3 numbers equal if their mutual differences are even. That means all three are odd or all three are even.
+ * If not, we print -1.
+ * If yes, sort the 3 numbers. now first is smallest and las tis largest, easy to handle. dont worry about tc becuase n=3 is fixed
+ * To get to know the minimum number of operations to achieve this... 
+ * We first go on incrementing smallest number (along with a[1]) and decrement largest number until they are equal. 
+ * This corresponds to "a[2]-a[0])/2". Then we increment a[0] and a[2] while decrementing a[1] at the cost of their equivalence. 
+ * This corresponds to "a[1]-a[0])/2". Finally we add both and print them as minimum number of operations.
+ * No of steps are being halved becuase we are incrementing and decrementing a tthe same time
+ * and no of steps being taken is the diffenrece of number so we divide by 2. i.e. (a[2]-a[0])/2 and same (a[1]-a[0]/2)
+ * After (a[2]-a[0])/2 steps a[0] and a[2] becomes equal see in example
+ * now after (a[1]-a[0])/2 steps a[0] and a[1] becoems equal. i.e. all three becoems equal.
+ * 
+ * The minimum number of operations required is the difference between the (average of largest and second largest element) and the (lowest element).
+ * For example, consider 2 4 8.
+ * 1st--> 3 5 7
+ * 2nd-->4 6 6
+ * 3rd--> 5 5 7
+ * 4th--> 6 6 6
+ * Number of operations required = 4 = 6 - 2
+ * 
+ * Another example (2 6 12)
+ * (3 7 11) => (4 8 10) => (5 9 9) => (6 10 8) => (7 11 9) => (8 12 8) => (9 11 9) => (10 10 10)
+ * total steps = 7 = ((6+12)/2 -2)
+ * 
+ * Another way to see that the three numbers can be made equal or not is
+ * abs(a-b) & abs(b-c) & abs(a-c) should be even
+ */
+
+
+
+
+link - https://www.codechef.com/problems/THREENUMBERS?tab=statement
