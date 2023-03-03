@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+void solve(){
+    int n,m;
+    cin >> n>>m;
+    vector<ll> v(n);
+    for(int i=0;i<n;i++) cin>>v[i];
+    sort(v.begin(),v.end());
+    int count=0;    //this is to count the numbers we cna have in our ans subset
+    int mex = 1;    //array constraint is from 1
+    for(int i=0;i<v.size();i++){
+        if(v[i]==m) continue;
+        if(v[i]==mex) mex++;
+        count++;
+    }
+    if(mex!=m) cout<<-1<<endl;
+    else if(count == 0) cout<<-1<<endl;
+    else cout<<count<<endl;     
+    }
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t-->0){
+        solve();
+    }
+    return 0;
+}
+
+
+/*
+in order for MEX == M,
+condition I : subset of chosen number should not contain M
+condition II : all numbers from 0 to M-1 should be there in subset for M to be equal to MEX
+So, numbers>=M+1 don't matter; so they should be present in the subset since the questiond emand sus to make the biggest subset
+Simple way to porceed, is to first sort the array so we can see everything in order and make picking up ismple, choose all numbers except M, where it is the smallest possible absent number.
+*/
+
+link - https://www.codechef.com/problems/MAXMEX?tab=statement
+
+
+
+
