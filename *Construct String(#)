@@ -1,0 +1,8 @@
+LOGIC : One character is mapped to two more
+Case I : odd (just one)
+eg : abbbc
+Solution : abc
+
+Case II : even (just two)
+eg: abbbbbc
+Solution: abbc
