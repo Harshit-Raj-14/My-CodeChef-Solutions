@@ -1,0 +1,54 @@
+import java.util.*;
+
+class Codechef
+{
+	public static void main (String[] args) {
+		Scanner sc = new Scanner(System.in);
+	    int t= sc.nextInt();
+		while(t-->0){
+		    int n= sc.nextInt();
+		    String s = sc.next();
+		    int count =1;
+		    char previous = s.charAt(0);
+		    StringBuilder ans =  new StringBuilder("");
+		    
+		    for(int i=1;i<n;i++){
+		        if(s.charAt(i)==previous){
+		            count++;
+		        }
+		        else{
+		            if(count%2==0){ // use modulo operator to check if count is even
+		                ans.append(previous);
+		                ans.append(previous);
+		            }
+		            else ans.append(previous);
+		            //resetting everything
+		            previous = s.charAt(i);
+		            count=1;
+		        }
+		    }
+		    // add the last character(s) to the result string, note that in above we stopped at the last char and did not add it (dry run)
+		    if (count % 2 == 0) {
+                    ans.append(previous).append(previous);
+                } else {
+                    ans.append(previous);
+                }
+			System.out.println(ans);
+		}
+	}
+}
+
+
+
+LOGIC : One character is mapped to two more
+Case I : odd (just one)
+eg : abbbc
+Solution : abc
+
+Case II : even (just two)
+eg: abbbbbc
+Solution: abbc
+
+
+
+link - https://www.codechef.com/START83D/problems/CONSTR
