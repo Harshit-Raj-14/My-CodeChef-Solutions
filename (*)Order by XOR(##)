@@ -1,0 +1,22 @@
+LOGIC -
+Find X to fulfill ocndition : (A⊕X)<(B⊕X)<(C⊕X)
+
+Case I : Numbers already sorted
+eg : 1 2 3
+if X=0
+we already know that  a^0 = a
+So, we got our condition fulfilled.
+
+Case II:
+eg : 3 2 1
+if X=3
+Binary form for a,b,c : 11 10 01
+X = 3 = 11
+Binary form(a,b,c^X) == 00 01 10 == 0 1 2
+So, we got our condition fulfilled.
+
+
+6 4 2
+
+
+link - https://www.codechef.com/problems/XOR_ORDER
