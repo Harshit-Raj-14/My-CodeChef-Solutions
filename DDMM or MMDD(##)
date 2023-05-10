@@ -1,0 +1,48 @@
+/* ACCEPTED SOLUTION */
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc=new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    String s = sc.next();
+		    int DD = (s.charAt(0) - '0')*10 + (s.charAt(1)-'0');
+		    int MM = (s.charAt(3) - '0')*10 + (s.charAt(4)-'0');
+		    if(DD>12) 
+		    System.out.println("DD/MM/YYYY");
+		    else if(MM>12) 
+		    System.out.println("MM/DD/YYYY");
+		    else System.out.println("BOTH");
+		}
+	}
+}
+
+LOGIC - 
+
+
+
+
+/* USING INBUILT METHODS ACCEPTED */
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc=new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    String s = sc.next();
+        
+		    String DD = s.substring(0,2);
+		    String MM = s.substring(3,5);
+        
+		    if(Integer.parseInt(DD)>12) 
+		    System.out.println("DD/MM/YYYY");
+        
+		    else if(Integer.parseInt(MM)>12) 
+		    System.out.println("MM/DD/YYYY");
+        
+		    else System.out.println("BOTH");
+		}
+	}
+}
