@@ -1,0 +1,38 @@
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t-->0){
+		    int n = sc.nextInt();
+		    int A[] = new int[n];
+		    for(int i=0;i<A.length;i++){
+		        A[i]=sc.nextInt();
+		    }
+		    int scoreA=0;
+		    int C[] = new int[A.length];
+		    Arrays.fill(C, 1);
+		    for(int i=0;i+1<A.length;i++){
+		        if(A[i]!=A[i+1]) scoreA++;
+		    }
+		    for(int i=0;i<C.length;i++){
+		        if(A[i]==0) C[i]=1;
+		        else C[i]=0;
+		    }
+		    
+		    for(int i=0;i<C.length;i++){
+		        System.out.print(C[i] + " ");
+		    }
+		    System.out.println();
+		}
+		sc.close();
+	}
+}
+
+
+
+LOGIC ---
+Change all 0 to 1
+and all 1 to 0
+score will be same
