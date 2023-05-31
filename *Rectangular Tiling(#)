@@ -13,3 +13,10 @@ class Codechef
 		sc.close();
 	}
 }
+
+
+logic - we want perimeter not divisible by 4 for the smaller tiles
+Perimeter formula = 2(l+b)
+So, (l+b) should not be divisble by 2 for the smaller rectangles.
+if(both l and b are even 
+
