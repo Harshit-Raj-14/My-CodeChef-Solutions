@@ -1,0 +1,38 @@
+/* TLE ERROR */
+class Codechef
+{
+
+
+public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t-->0){
+		    int n = sc.nextInt();   //total no. of songs
+		    int k = sc.nextInt();   //no. of songs in playlist
+		    int l = sc.nextInt();   //language of song
+		    int song[] = new int[n+1];
+		    int lang[] = new int[n+1];
+		    ArrayList<Integer> list = new ArrayList<>();
+		    for(int i=1;i<=n;i++){
+		        song[i]=sc.nextInt();
+		        lang[i]=sc.nextInt();
+		    }
+		    for(int i=0;i<song.length;i++){
+		        if(lang[i]==l && !list.contains(song[i])){  //to keep disitnct songs
+		            list.add(song[i]);
+		        }
+		    }
+		    Collections.sort(list);
+		    int ans=0;
+		    int i=0;
+		    while(k-->0){
+		        if(!list.isEmpty()) ans+=list.get(list.size()-1-i);
+		        i++;
+		    }
+		    if(ans>0) System.out.println(ans);
+		    else System.out.println(-1);
+		}
+		sc.close();
+	}
+}
