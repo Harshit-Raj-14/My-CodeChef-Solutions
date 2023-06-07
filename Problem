@@ -1,0 +1,41 @@
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		int t= sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    int m=sc.nextInt();
+		    if((m&1)==0 && (n&1)==0) System.out.println("YES");
+		    else if((m&1)!=0 && (n&1)!=0) System.out.println("YES");
+		    else System.out.println("NO");
+		}
+		sc.close();
+	}
+}
+
+
+LOGIC
+
+By observation
+in case I: Alice solves
+n--. m++
+if both n and m is both odd or both even only then possible.
+odd-1=even => so both needs to be odd
+odd+1=even
+even-1=odd => so both needs to be even
+even+1=odd
+
+In case II: Bob solves
+m--, n+3
+If n amd m is both odd or both even only then possible
+odd-1=even => so both needs to be odd
+odd+3=even
+even-1=odd => so both needs to be even
+even+3=odd
+
+
+Note the difference always stand at 2 or 4
+So, we want either both to be odd or both to be even.
+So, even after subtraction or addition we still get both odd or both even.
