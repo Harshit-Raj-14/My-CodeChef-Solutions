@@ -1,0 +1,69 @@
+/* WRONG ANSWER */
+/* package codechef; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Codechef
+{
+    public static void SortAndReverse(int nums[]){
+        Arrays.sort(nums);
+        for(int i=0;i<nums.length/2;i++){
+            int temp=nums[i];
+            nums[i]=nums[nums.length-i-1];
+            nums[nums.length-i-1]=temp;
+        }
+    }
+    
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt(); //cars
+		    int m=sc.nextInt(); //power outlets
+		    int h=sc.nextInt(); //hours
+		    int cars[] = new int[n];
+		    for(int i=0;i<cars.length;i++){
+		        cars[i]=sc.nextInt();
+		    }
+		    int outlets[] = new int[m];
+		    for(int i=0;i<outlets.length;i++){
+		        outlets[i]=sc.nextInt();
+		    }
+		    SortAndReverse(cars);
+		    SortAndReverse(outlets);
+		    int i=0;    //pointer on car
+		    int j=0;    //pointer on outlets
+		    long currentEnergy=0;
+		    long finalEnergy=0;
+		    while(i<cars.length && j<outlets.length){
+		        currentEnergy=outlets[j]*h;
+		        finalEnergy+=Math.min(cars[i], currentEnergy);
+		        i++;
+		        j++;
+		    }
+		    System.out.println(finalEnergy);
+		}
+		sc.close();
+	}
+}
+
+
+
+LOGIC ---
+If you have HH hours, what’s the maximum total power that can be charged?
+Each car can use at most one charger, each charger can charge at most one car.
+
+EXPLANATION:
+
+Let K=min⁡(N,M)K=min(N,M).
+Certainly, we can only use at most KK outlets, and charge at most KK cars.
+
+Since only K outlets can be used, it makes sense to take the best K of them, i.e, the K highest Bi​ values.
+Similarly, it makes sense to take the cars with most capacity - the K largest Ai​ values.
+
+These can be found by sorting the array in descending order.
+It’s not hard to see that it’s best to match the best outlet to the highest-capacity car, the second best outlet to the second highest-capacity car, and so on.
