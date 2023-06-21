@@ -1,0 +1,78 @@
+/* O(n) */
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    String arr[] = new String[n];
+		    for(int i=0;i<arr.length;i++){
+		        arr[i]=sc.next();
+		    }
+		    int countA=0;
+		    int countB=0;
+		    int countAB=0;
+		    int countO=0;
+		    for(int i=0;i<arr.length;i++){
+		        if(arr[i].equals("A")) countA++;
+		        else if(arr[i].equals("B")) countB++;
+		        else if(arr[i].equals("AB")) countAB++;
+		        else countO++;
+		    }
+		    int ans=0;
+            ans = countAB + countO + Math.max(countA, countB);
+		    System.out.println(ans);
+		}
+		sc.close();
+	}
+}
+
+LOGIC ---
+Looking at the possible donors/receivers, we see that:
+ Blood type O can donate to any type.
+ Blood type AB can receive from any type.
+ Blood types A and B don’t have any interaction with each other.
+
+This means:
+Anyone with blood type O or AB can always be placed in any chain: either at the front, or at the end depending on their type.
+The chain can’t contain both a blood type-A person and a type-B person.
+
+Together, this tells us that we can pick everyone with types O and AB; and after that we must choose between types A and B. Clearly, it’s best to choose whichever type has most people.
+
+So, if cxcx​ denotes the number of people with blood type xx, the answer is
+cO+cAB+max⁡(cA,cB)
+
+
+
+/* USING HASHMAP BUT USELESS */
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    String arr[] = new String[n];
+		    for(int i=0;i<arr.length;i++){
+		        arr[i]=sc.next();
+		    }
+		    HashMap<String, Integer> map = new HashMap<>();
+		    for(int i=0;i<arr.length;i++){
+		        if(!map.containsKey(arr[i])) map.put(arr[i], 1);
+		        else map.put(arr[i], map.get(arr[i])+1);
+		    }
+		    int ans = 0;
+		    int a=0, b=0;
+            if (map.containsKey("O")) ans += map.get("O");
+            if (map.containsKey("AB")) ans += map.get("AB");
+            if (map.containsKey("A")) a = map.get("A");
+            if (map.containsKey("B")) b = map.get("B");
+            ans += Math.max(a, b);
+		    System.out.println(ans);
+		}
+		sc.close();
+	}
+}
