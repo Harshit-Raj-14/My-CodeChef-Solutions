@@ -1,0 +1,25 @@
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		int n=sc.nextInt();
+		String arr[] = new String[n];
+		for(int i=0;i<arr.length;i++){
+		    arr[i]=sc.next();
+		}
+		StringBuilder sb = new StringBuilder("");
+		HashSet<String> set = new HashSet<>();
+		for(int i=arr.length-1;i>=0;i--){
+		    if(!set.contains(arr[i])) sb.append(arr[i].substring(arr[i].length()-2, arr[i].length()));
+		    set.add(arr[i]);
+		}
+		System.out.println(sb);
+		sc.close();
+	}
+}
+
+/* We will use substring to get the last two chars.
+We will traverse in reverse order of array to get the latest opening
+Also, we will need to maintain a hashset of already opened tabs, so that we do not repeat it going backwards
+*/
