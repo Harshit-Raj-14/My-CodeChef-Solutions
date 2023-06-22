@@ -1,11 +1,3 @@
-/* WRONG ANSWER */
-/* package codechef; // don't place package name! */
-
-import java.util.*;
-import java.lang.*;
-import java.io.*;
-
-/* Name of the class has to be "Main" only if the class is public. */
 class Codechef
 {
     public static void SortAndReverse(int nums[]){
@@ -40,7 +32,7 @@ class Codechef
 		    long currentEnergy=0;
 		    long finalEnergy=0;
 		    while(i<cars.length && j<outlets.length){
-		        currentEnergy=outlets[j]*h;
+		        currentEnergy=(long)h*outlets[j];
 		        finalEnergy+=Math.min(cars[i], currentEnergy);
 		        i++;
 		        j++;
@@ -50,6 +42,10 @@ class Codechef
 		sc.close();
 	}
 }
+
+NOTE - THE REASON TO TYPECAST h to long in multiplication is so becuase if we did not do it, the multiplication would have returned int leading to lossy conversion
+THE BETTER THING TO HANDLE THESE KIND OF SITUATION SIS TO TAKE EVERYTHING AS LONG IN INPUT. (THIS ACTUALLY WORKED WHEN TRIED)
+REMEMBER THIS
 
 
 
