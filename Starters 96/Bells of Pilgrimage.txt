@@ -1,0 +1,21 @@
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt(); //total bells
+		    int x=sc.nextInt(); //bells ring in start to get 10
+		    int k=sc.nextInt(); //how many bells rung till now
+		    int p=sc.nextInt(); //initial mana
+		    if(k==0) System.out.println(p);
+		    else if(k<=x) System.out.println(p+k*10);
+		    else if(k>x){
+		        if(k==n) System.out.println(p+x*10+(n-x)*5+20);
+		        else System.out.println(p+x*10+(k-x)*5);
+		    }
+		}
+		sc.close();
+	}
+}
