@@ -1,1 +1,42 @@
+class Codechef
+{
+    public static void main (String[] args) throws java.lang.Exception
+    {
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            int m=sc.nextInt();
+            int arr[]=new int[m];
+            int totalBalls=0;
+            for(int i=0;i<m;i++){
+                arr[i]=sc.nextInt();
+                totalBalls+=arr[i];
+            }
+            int ans=Math.max(totalBalls-(m-1)*n, 0);
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+}
 
+
+LOGIC---
+A bad box will be one that does not has m color balls in it(distinct).
+So, to get the minimum number of good boxes:-(box with all distinct m colors)
+We start with making all boxes bad -> all boxes contain m-1 elements.
+For the above we will require (m-1)*n balls.
+So, if after the above used balls there are still x balls left.
+Then we can make at minimum x good boxes. 
+
+APPROACH ---
+Total no of available balls = sum of given array of color balls.
+Case I: total<(m-1)*n => minimum no. of good boxes=0. Since no good boxes can be formed
+Case II: total>(m-1)*n
+So, here x=total-(m-1)*n
+Solution will be x minimum good boxes.
+
+The above can be elegantly summed up as - max(total-(n-1)*m, 0)
+
+
+What exactly is (m-1)*n => its saying we put one color less than the total no of colors in each box
