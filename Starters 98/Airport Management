@@ -1,0 +1,42 @@
+import java.util.*;
+class Codechef{
+    public static void main (String[] args){
+        Scanner sc= new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            int arrival[] = new int[n];
+            int departure[] = new int[n];
+            for(int i=0;i<arrival.length;i++){
+                arrival[i]=sc.nextInt();
+            }
+
+            int max=0;  //finding max in departure
+            for(int i=0;i<departure.length;i++){
+                departure[i]=sc.nextInt();
+                max=Math.max(departure[i],max);
+            }
+
+            int count[] =new int[max+1];
+            for(int i=0;i<arrival.length;i++){
+                count[arrival[i]]++;
+                count[departure[i]]++;
+            }
+            int ans=0;
+            for(int i=0;i<count.length;i++){
+                ans=Math.max(count[i],ans);
+            }
+            System.out.println(ans);
+        }
+        sc.close();
+    }
+}
+
+
+LOGIC ---
+We make a count array where index represent time interval
+Then at each of these indexes or time we see how amny airplane are presetn on runway whether its departure or arrival
+and then add them at that interval
+the greatest number in count array would represent the maximum no. of plane at a time and would also be the number of required runway.
+
+
