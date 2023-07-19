@@ -1,0 +1,37 @@
+class Codechef{
+	public static void main (String[] args) throws java.lang.Exception{
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    int arr[]=new int[n];
+		    for(int i=0;i<arr.length;i++){
+		        arr[i]=sc.nextInt();
+		    }
+		    int currNum=0;
+		    int maxNum=0;
+		    HashSet<Integer> set = new HashSet<>(); //this hashset will help us to keep tab who is in the room or not, so imagine this hashset itself is the room
+		    for(int i=0;i<arr.length;i++){
+		        if(set.contains(arr[i])){
+		            currNum--;
+		            set.remove(arr[i]);
+		        }
+		        else{
+		            set.add(arr[i]);
+		            currNum++;
+		        }
+		        maxNum=Math.max(maxNum, currNum);
+		    }
+		    System.out.println(maxNum);
+		}
+		sc.close();
+	}
+}
+
+LOGIC ---
+We are talking about what is the maximum number of people in a room
+Let's cosndier the room a hashset, since each perosn exist once
+Initially room is empty
+So, first instace of the eprosn will enter the room add to hashet
+Next insntance encoutnered would mean he left the room, so remove him from hashet
+at each step maintain a current counter and then get the max count
