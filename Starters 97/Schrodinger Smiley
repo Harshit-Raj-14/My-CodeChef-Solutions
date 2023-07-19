@@ -1,0 +1,46 @@
+class Codechef{
+	public static void main (String[] args) throws java.lang.Exception{
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    String s=sc.next();
+		    StringBuilder sb = new StringBuilder();
+		    sb.append(s.charAt(0));
+		    for(int i=1,j=0;i<s.length();i++){
+		        if(sb.charAt(j)!=s.charAt(i)){
+		            sb.append(s.charAt(i));
+		            j++;
+		        }
+		    }
+		    if(sb.length()<3){  //no smiley can exist
+		        System.out.println(0);
+		        continue;   //exit the current loop and move to next testcase
+		    }
+		    int count=0;
+		    for(int i=0;i<sb.length()-2;i++){
+		        if(sb.charAt(i)==':' && sb.charAt(i+1)==')' && sb.charAt(i+2)==':'){
+		            count++;
+		        }
+		    }
+		    System.out.println(count);
+		}
+		sc.close();
+	}
+}
+
+
+
+
+Logic ---
+A smile is defiend as any number of right paranthesis between two colons.
+eg-> :))): is a smile
+:): so this is a basic structure of smile. =>pattern of three consecutive character which we can check occurence in stirng
+We understand that to get the number of substring the number of ),(,: does not matter if they are in continuity.
+eg-> :))):(((:::())
+can be reduced to -> :):(:()
+We can get the reduced form jsut by checking if the next elemnt is same as previous or not
+
+Now just check the following condition -> if(sb.charAt(i)==':' && sb.charAt(i+1)==')' && sb.charAt(i+2)==':')
+Increase answer count if found
+print it
