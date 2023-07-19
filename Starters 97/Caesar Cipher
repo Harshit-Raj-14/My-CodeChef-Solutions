@@ -1,0 +1,38 @@
+class Codechef{
+	public static void main (String[] args) throws java.lang.Exception{
+	    Scanner sc = new Scanner(System.in);
+		int q=sc.nextInt();
+		while(q-->0){
+		int n=sc.nextInt();
+		String s=sc.next();
+		String t=sc.next();
+		String u=sc.next();
+		int k=t.charAt(0)-s.charAt(0);
+		if(k<0) k+=26; //eg: d->b => that emnas we looped once and the again a to b
+		StringBuilder ans = new StringBuilder("");
+		for(int i=0;i<u.length();i++){
+                //char c = u.charAt(i);
+                char val = (char)((u.charAt(i) - 'a' + k) % 26 + 'a');
+                ans.append(val);
+		}
+		System.out.println(ans);
+		}
+		sc.close();
+	}
+}
+
+
+LOGIC ---
+First we claculate k by whic hwe rotated
+This cna be calculated by subtracting the first character fos tring s and t => k=t(0)-s(0)
+But what if a situation where s(0)>t(0) => that means we lopped once from z and came back to a, in this case, k will be -ve and so just add 26 to it to make positive
+
+Next step is calculating the char produced from rotation in string u by k
+
+u.charAt(i) - 'a' => position number of that character from 1 to 26
+u.charAt(i) - 'a' + k => this is adding that value by k
+(u.charAt(i) - 'a' + k) % 26 => in case we have looped if previous value was greater than 26, we start again from a and is then rotated by remainder of it
+(u.charAt(i) - 'a' + k) % 26 + 'a' => get back the IISC code number of that character
+typecast the above to char to get the character and add it to stirng
+
+
