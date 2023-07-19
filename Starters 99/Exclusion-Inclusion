@@ -1,0 +1,94 @@
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		long t=sc.nextLong();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    int arr[]=new int[n];
+		    for(int i=0;i<arr.length;i++){
+		        arr[i]=sc.nextInt();
+		    }
+		    Arrays.sort(arr);
+		    //reverse the array
+		    for(int i=0;i<arr.length/2;i++){
+		        int temp=arr[i];
+		        arr[i]=arr[arr.length-1-i];
+		        arr[arr.length-1-i]=temp;
+		    }
+		    long prefixsum[]=new long[n];
+		    prefixsum[0]=arr[0];
+		    for(int i=1;i<arr.length;i++){
+		        prefixsum[i]=prefixsum[i-1]+arr[i];
+		    }
+		    for(int i=0;i<prefixsum.length/2;i++){
+		        long temp=prefixsum[i];
+		        prefixsum[i]=prefixsum[arr.length-1-i];
+		        prefixsum[arr.length-1-i]=temp;
+		    }
+		    for(int i=0;i<prefixsum.length;i++){
+		        System.out.print(prefixsum[i]+" ");
+		    }
+		    System.out.println();
+		}
+		sc.close();
+	}
+}
+
+
+LOGIC ---
+Notice the test case, observe them
+If you first sort the array
+then calculate prefix array backward
+and then reverse the same prefix array you get the ans
+To pass all testcases make prefix array in long
+
+You can dryrun the test case and reach to same above result
+the basic observation is that when i=1, we add all elements to score
+when i=2, we start addign all the bigger elemtns to gain maximum score and only one element remains in bucket
+when i=3, we start adding all bigger elements from bucket to maximum score and only two elemtns are left
+Int the end we are consdierign all the elements at a time
+Here, i is a way fos aying how many elemtns to leave in array
+to maximise the array, if we are leaving lements let's leave the smallest ones
+Hence the reason why we first sort the array, thenr everse it, to get prefixsuma and again reverse it
+
+
+
+/* ELEGANT CODE USING ARRAYLIST TO USE COLLECTIONS PROPERTIES */
+class Codechef{
+	public static void main (String[] args) throws java.lang.Exception{
+		Scanner sc = new Scanner(System.in);
+		long t=sc.nextLong();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    ArrayList<Integer> arr = new ArrayList<>();
+		    for(int i=0;i<n;i++){
+		        arr.add(sc.nextInt());
+		    }
+		    Collections.sort(arr);
+		    Collections.reverse(arr);
+		    ArrayList<Long> prefixsum=new ArrayList<>();
+		    prefixsum.add((long)arr.get(0));
+		    for(int i=1;i<arr.size();i++){
+		        prefixsum.add(prefixsum.get(i-1) + arr.get(i));
+		    }
+		    Collections.reverse(prefixsum);
+		    for(int i=0;i<prefixsum.size();i++){
+		        System.out.print(prefixsum.get(i)+" ");
+		    }
+		    System.out.println();
+		}
+		sc.close();
+	}
+}
+
+
+
+Note - If you know of the above logic you can now implement the solution in various ways - 
+M I - 
+Find the sum of the array. Sort the array. 
+Traverse the array from index 0 to n-2. At each iteration subtract the array element from sum and append the sum value to the result array.
+
+
+
