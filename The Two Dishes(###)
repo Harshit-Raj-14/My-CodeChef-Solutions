@@ -1,0 +1,58 @@
+/* O(1) SOLUTION */
+class Codechef{
+	public static void main (String[] args) throws java.lang.Exception{
+		Scanner sc= new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    int s=sc.nextInt();
+		    if(n>=s) System.out.println(s);
+		    else if(s>n) System.out.println(Math.abs(s-2*n));
+		}
+		sc.close();
+	}
+}
+
+LOGIC ---
+give : n-> max value of tastiness
+s-> sum of two tastiness
+to find : max absolute difference
+
+instead of thinking of finding both tastiness values
+think like this for max absolute differnece we can have t1=0 and t2=n(the max value of tastiness) but that is only possible if n+0=s (s is equal to n) => maxdiff=n
+But there is still a possibility s<n in that case t1=0 and t2=s => maxdiff=s
+so, if(s>n) t1=s-n and t2=n => maxdiff=Math.abs(s-2n)
+
+Hence concluding with three cases:
+Case I: n==s => t1=0, t2=n=s => maxdiff=n=s
+Case II: n>s => t1=0, t2=s => maxdiff=s
+Case III: n<s => t1=n, t2=s-n => maxdiff=Math.abs(s-2n)
+
+Note : Case I and II can be clubbed and III seperate
+Note : all three cases can be clubbed into -> System.out.println(n-Math.abs(s-n));
+
+/* O(n^2) TLE SOLUTION */
+class Codechef{
+	public static void main (String[] args) throws java.lang.Exception{
+		Scanner sc= new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    int sum=sc.nextInt();
+		    int maxmin=Integer.MIN_VALUE;   //max absolute difference
+		    for(int i=0;i<=n;i++){
+		        for(int j=0;j<=n;j++){
+		            if(i+j==sum){
+		                int min=Math.abs(j-i);
+		                maxmin=Math.max(maxmin, min);
+		            }
+		        }
+		    }
+		    System.out.println(maxmin);
+		}
+		sc.close();
+	}
+}
+
+LOGIC ---
+seeing all cases
