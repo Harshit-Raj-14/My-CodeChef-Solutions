@@ -1,0 +1,70 @@
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-->0) {
+            int n = sc.nextInt();
+            String s = sc.next();
+            int firstpos1=-1;
+            for(int i=0;i<s.length();i++){
+                if(s.charAt(i)=='1') {firstpos1=i; break;}
+            }
+            if(firstpos1==-1 || firstpos1==n-1 || firstpos1==n-2){  //edge case : 0000011
+                System.out.println(s);
+            }
+            else{
+                StringBuilder sb = new StringBuilder(s);
+                for(int i=s.length()-1;i>firstpos1;i--){
+                    sb.setCharAt(i,'0');
+                }
+                System.out.println(sb.toString());
+            }
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+We can change any character and the next two digits of it into 100.
+Lexicographically smalles means that the first unequal character encountered, should be the minimum.
+
+So, lt's say you have a random string: 
+s= 00010101101011010110100
+Now, if you were given liberty to change any digit and the enxt two of it with 100.
+
+So, if I were to keep repeatign the above operation at some point I cna end up with:
+s1= 00010000000000000000000,
+I converted all the characters, by putting hundred and bringing it to the left.
+Now if I were to again apply the same oepration to hte left of 1.
+s2= 00100000000000000000000
+or, it can be,
+s3= 01000000000000000000000
+or,
+s4= 10000000000000000000000
+Now, s4 could have bene the max trnasformation.
+But now notice the reality,
+s2<s3<s4
+Reason the greater number of 0's on the left of 1 in strign s2.
+
+Since in no way we can affect the intial 0's without making its lexicographically large.
+
+Approach:
+So, we can get an effect similar to s2 only if we leave the first occurence of 1 intact and then make all other elements on its right 0 by travelling from back to first occurence of 1 in front.
+
+That is the possible lexicographically smallest string and also our answer.
+
+Talk about EDGE CASE:
+What if our first occurence of 1 is at n-3 position.
+Then still our solution works.
+But what if our first occurence of  1 is at n-2, or n-3.
+Something like : 00000010 => our solution works and also the string itself is ans, becuase no operation can be applied
+But something like : 0000000011 => is where our solution might fail
+Becuase now we cannot apply any operation and our string will be the answer itself.
+Consequently the presence of first occurence of 1 at n-1 and n-2 makes the string itself our answer since applying operation will in no way make our string lexicographically smaller.
+So, jsut leave it like that.
+
+So, if(firstpos1==-1 || firstpos==n-1 || firstpos==n-2) s itself is answer
+//firstpos1 not found, firstpos 1 at n-1 or n-2
+*/

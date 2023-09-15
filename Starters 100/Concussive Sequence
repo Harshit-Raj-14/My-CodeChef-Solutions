@@ -1,0 +1,106 @@
+import java.util.*;
+class Codechef{
+	public static void main (String[] args) throws java.lang.Exception{
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    int arr[] = new int[n];
+		    for(int i=0;i<n;i++){
+		        arr[i]=sc.nextInt();
+		    }
+		    Arrays.sort(arr);
+		    int ans1[] = new int[n];    //type I : a1<a2>a3<a4>a5<a6>a7<....>an
+		    //Objective general ans: a0<a2>a1<a4>a3<a6>a5<....
+		    int index=0;
+		    for(int i=0;i<n;i++){ //we mean to put right now like this : a0<_>a1<_>a3<....
+		        if(index>=n) index=1;    //if reached till end time to fill from position 1
+		        ans1[index]=arr[i];
+		        index+=2;
+		    }
+		    int ans2[] = new int[n];    //type II : a1>a2<a3>a4<a5>a6<a7>....<an
+		    index=1;
+		    for(int i=0;i<n;i++){ //we mean to put right now like this : _>a0<_>a1<_>a3....
+		        if(index>=n) index=0;    //if reached till end time to fill from position 0
+		        ans2[index]=arr[i];
+		        index+=2;
+		    }
+		    if(concussive(ans1)) print(ans1);
+		    else if(concussive(ans2)) print(ans2);
+		    else System.out.println(-1);
+		}
+	}
+	
+	public static boolean concussive(int arr[]){
+	    for(int i=0;i<arr.length;i++){
+	        if(i>0 && i<arr.length-1){
+	            if(!((arr[i-1]<arr[i] && arr[i]>arr[i+1]) || (arr[i-1]>arr[i] && arr[i]<arr[i+1]))) return false;
+	        }
+	    }
+	    return true;
+	}
+	
+	public static void print(int arr[]){
+	    for(int i=0;i<arr.length;i++){
+	        System.out.print(arr[i]+" ");
+	    }
+	    System.out.println();
+	}
+}
+
+
+/*
+LOGIC---
+Concussive Sequence => a(i-1)<a(i)>a(i+1) or a(i-1)>a(i)<a(i+1) for all elements of array.
+=> element is either greater than both of its neighbour or less than both of its neighbours.
+
+Objective -> make a concussive sequence
+
+General sequence:
+a1<a2>a3<a4>a5<a6>a7<....>an
+a1>a2<a3>a4<a5>a6<a7>....<an
+=> these are the only two possible cases
+
+Since we will be ending to decide which is larger or smaller a lot, and the intial sequence does not matter, we can sort the array.
+
+So, now lets say -> a1,a2,a3,a4,a5,a6,a7... is in ascending order.
+So, we might arrnage into something like this:
+
+a1,a3,a2,a5,a4,a7,a6 => and we can strongly say that 
+=> a1<a3>a2<a5>a4<a7>a6 
+=> something called as wiggle sort 
+(Note how we are choosing the next element as currindex+2)
+
+Now the question becomes all about patterning how to generate the above kind of array
+And this is something which work on both even or odd number, we can get concussive sequence.
+
+
+The above holds true even when distinct or non-distinct elements.
+
+The above pattern is just a general template, our answer cna come in any form:
+the most important thing is index of new elemnt jumps by 2 of our sorted array.
+eg: sorted array => 0 1 2 3 4 5 6 7
+concussive sequence => 0 4 1 5 2 6 3 7 
+Type: a0<a4>a1<a5>a2<a6>a3<a7
+
+
+Also note we have to produce result for two general cases we showed beginning with (a0>a1.... or, a0<a1....)
+
+Also in case we are not able to generate the concussive sequence print -1.
+
+
+Note :
+If somebody tries to say use this two pointer approach: 
+start_el<last_el>start_el+1<last_el-1>start_el+1<.....
+Something like a two pointer approach. This is a bad solution. It will only work with all distinct elements.
+
+B-U-T, the real trouble comes when not all elements are distinct. 
+The above simple scenario holds only when the array all elements were distinct.
+If array has duplicate elements we might have to write a different story.
+
+In case of non distinct:
+eg: 11223
+two pointer approach => 1<3>1<2>=2   =>wrong at last position XXXX FAILED
+wiggle sort:(idea of currindex+2) => 1<2>1<3>2 SUCCESS
+
+*/

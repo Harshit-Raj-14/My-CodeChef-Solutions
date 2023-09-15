@@ -1,0 +1,172 @@
+/* O(n) SOLUTION */
+import java.util.*;
+class Codechef{
+	public static void main (String[] args) throws java.lang.Exception{
+		Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            int arr[] = new int[n];
+            //Case I: n=1,2,3
+            if(n<4) {System.out.println(-1); continue;}
+            //Generalised permutations
+            String five="4 5 1 2 3 ";
+            String six="4 5 6 1 2 3 ";
+            String seven="3 4 5 6 7 1 2 ";
+            //p: i-2, i-1, i+1, i+2
+            //p: i+1, i+2, i-2, i-1 (written with i=0 in mind) => swap(i-2,i+1); swap(i-1,i+2); {for n=4}
+            //Case II: type=: 4+4+4+4+4+....
+            if(n%4==0){
+                for(int i=4;i<=n;i+=4){
+                    System.out.print((i-1)+" "+i+" "+(i-3)+" "+(i-2)+" ");
+                }
+                System.out.println();
+            }
+            //Case II: type: 5+4+4+4+4....
+            else if(n%4==1){
+                System.out.print(five);
+                for(int i=9;i<=n;i+=4){
+                    System.out.print((i-1)+" "+i+" "+(i-3)+" "+(i-2)+" ");
+                }
+                System.out.println();
+            }
+            //Case IV: type: 6+4+4+4+4+4....
+            else if(n%4==2){
+                System.out.print(six);
+                for(int i=10;i<=n;i+=4){
+                    System.out.print((i-1)+" "+i+" "+(i-3)+" "+(i-2)+" ");
+                }
+                System.out.println();
+            }
+            //Case V: type: 7+4+4+4+4+4....
+            else if(n%4==3){
+                System.out.print(seven);
+                for(int i=11;i<=n;i+=4){
+                    System.out.print((i-1)+" "+i+" "+(i-3)+" "+(i-2)+" ");
+                }
+                System.out.println();
+            }
+        }
+	}
+}
+
+
+
+/* A FAILED APPROACH */
+import java.util.*;
+class Codechef{
+	public static void main (String[] args) throws java.lang.Exception{
+		Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            ArrayList<Integer> arr = new ArrayList<>();
+            for(int i=1;i<=n;i++){
+                arr.add(i);
+            }
+            if(n%2==0) Collections.rotate(arr, n/2);
+            else Collections.rotate(arr,2);
+            //print the array
+            if(n==2 || n==3){System.out.println(-1); continue;}
+            for(int i=0;i<arr.size();i++){
+                System.out.print(arr.get(i)+" ");
+            }
+            System.out.println();
+        }
+	}
+}
+
+/*
+LOGIC---
+
+Objective: To find array permutation {1...n} such that |P[i]-i| is always prime.
+
+First thing is to notice that differneces are absolute.
+Next is we know that our index is fixed, what we are actually doing is changing the value of Pi to something from rnage[1,n].
+Also, we have 1-based indexing in the question.
+
+Prime numbers : 2,3,5,7,11,.....
+
+Let's observe n=4
+1,2,3,4
+Let's check every possible: |element-index| following 1-based indexing
+index=1: 1-1=0; 2-1=0; 3-1=2; 4-1=3 => winner=3,4
+index=2: 1-2=1; 2-2=0; 3-2=1; 4-2=2 => winner=4
+index=3: 1-3=2; 2-3=1; 3-3=0; 4-3=1 => winner=2,3
+index=4: 1-4=3; 2-4=2; 3-4=1; 4-4=0 => winner=2
+
+We need to realise that what we are actually searching or trying to maek is,
+|P(i)-i|=prime=2,3,4,5,7,11,....
+
+So, for starters why not just fix => |p(i)-i|=2
+So, for above n=4, we get:
+i: 1 2 3 4
+p: 3 4 1 2
+d: 2 2 2 2 => as you can see we have made a successful difference of 2
+
+But the above fails when we want to do the smae for n=5; but there still exist a permutation:
+i: 1 2 3 4 5
+p: 4 5 1 2 3
+d: 3 3 2 2 2
+
+But now for n=6; our trick for having a fixed difference like 3 works 
+i: 1 2 3 4 5 6
+p: 4 5 6 1 2 3
+d: 3 3 3 3 3 3
+
+But now for n=7; our trick again fails of coming up iwht a fixed differnece:
+i: 1 2 3 4 5 6 7 
+p: 6 7 1 2 3 4 5
+d: 5 5 2 2 2 2 2
+
+Do you see the pattern:
+If n==even like n=6 then : 1 2 3 || 4 5 6
+=> 4 5 6 || 1 2 3 => ans permutation => array rotated by n/2
+
+If n==odd like n=7 then : 1 2 3 4 5 || 6 7
+=> 6 7 || 1 2 3 4 5 => array rotated by n/2-1
+
+Let's confirm this for n=7 => it works
+
+But for n=8 => we get a permutation which does nto fulfill the condtion and not the correct sequence that we wanted.
+
+Hence this was a wrong approach.
+
+BUT YOU SEE WE HAVE NOT COMPLETELY FAILED.
+The approach we came up actually works from n=4 to n=7.
+
+So, if we have n=8:
+i: 1 2 3 4 || 5 6 7 8
+p: 3 4 1 2 || 7 8 5 6   => you see we apply the permutation effect for n=1 to n=4 and then the same pattern holds true for n=5 to n=8.
+
+
+In general if n%4==0 then;
+i: i-2, i-1, i+1, i+2 can be turned into the following permutation
+p: i+1, i+2, i-2, i-1
+d: 3    3    3    3
+Hence we can do as above explained in n=8; make group of 4 and use the above pattern.
+
+Now, talkign about if n%4==1 => then we can only create a possible solution if (n-5)%4==0
+Similarly, if (n%4==2) then (n-6)%4==0; 
+if(n%4==3) then (n-7)%4==0;
+
+
+Final approach:
+For, n=1,2,3 It will be -1(Verify Manually) 
+Now calculate for n=4,5,6,7 
+n=4={3,4,1,2};          (n%4==0)
+n=5={4,5,1,2,3};        (n%4==1)
+n=6={4,5,6,2,3,1};      (n%4==2)
+n=7={3,7,5,6,2,1,4};    (n%4==3)
+
+Then Observation : 
+8=4+4, 
+9=4+5 = 5+4, 
+10=5+5 = 4+6 = 6+4, 
+11=5+6 = 4+7 = 7+4, 
+12=5+7 = 4+4+4, 
+13=5+4+4, 
+14=4+4+6 = 6+4+4, 
+15=5+5+5= 4+4+7 = 7+4+4
+So use these four, five,six,seven precalculated permutation to calculate for larger numbers.
+*/

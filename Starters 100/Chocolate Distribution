@@ -1,0 +1,23 @@
+import java.util.*;
+class Codechef{
+	public static void main (String[] args) throws java.lang.Exception{
+		Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            System.out.print(1+" ");
+            System.out.print(1+" ");
+            System.out.println((n-2)+" ");
+        }
+	}
+}
+
+LOGIC---
+We are asked to keep two numbers same and at least one number odd.
+Also, constraint is n>=4
+So, if one number is 1 -> odd
+let's have other number -> 1 again
+
+Left number -> n-2
+
+So, we got two equal number na dat least one odd => makign the above numbers always true
