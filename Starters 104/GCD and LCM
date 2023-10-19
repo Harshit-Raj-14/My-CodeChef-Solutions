@@ -1,0 +1,92 @@
+/* O(klogn) SOLUTION */
+import java.util.*;
+class Codechef{
+	public static void main (String[] args){
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int x=sc.nextInt(); 
+		    int y=sc.nextInt();
+		    int k=sc.nextInt();
+		    int equal=0;
+		    while(k-->0 && equal==0){
+		        if(x==y){
+		            equal=1;
+		            continue;
+		        }
+		        //first step
+		        int gd=gcd(x,y);
+		        if(x>=y) x=gd;
+		        else y=gd;
+		        //second step
+		        int lc=(x*y)/gd;    //LCM x HCF = one number x other number
+		        if(x>=y) x=lc;
+		        else y=lc;
+		    }
+		    System.out.println(x+y);
+		}
+	}
+	
+	public static int gcd(int a, int b){
+	    if (b == 0) return a;
+	    if(a==b) return a;
+        else return gcd(b, a % b);
+    }   
+}
+
+/* 
+LOGIC---
+Just do what the question says
+
+Observations :
+If x and y are same (x==y) no matter how many operatiosn you apply : final sum = x+y
+
+Otherwise, perform the steps : 
+everytime you find gcd or lcm replace it witht he largest element
+Continue to apply operation k times
+*/
+
+
+
+
+/* O(logn) solution */
+import java.util.*;
+class Codechef{
+	public static void main (String[] args){
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int x=sc.nextInt(); 
+		    int y=sc.nextInt();
+		    int k=sc.nextInt();
+		    int g=gcd(x,y);
+		    int sum=0;
+		    if (k <= 1) sum = g + Math.min(x, y);
+		    else sum=2*g;
+		    System.out.println(sum);
+		}
+	}
+	
+	public static int gcd(int a, int b){
+	    if (b == 0) return a;
+	    if(a==b) return a;
+        else return gcd(b, a % b);
+    }
+}
+
+/* 
+LOGIC---
+
+Case I : k=0,1
+First apply GCD
+(X,Y) => (g, y) => for sure now that g is a factor of y and y<x
+Now if you apply lcm on (g,y) => you still get y only becuase g is a factor of y => since g<y, let's make y lcm which is y again
+sum = g+y = g + min(x,y)
+
+Case II: k>1
+In next step we again apply gcd again getting g and this time replacing y with g
+Now we have x=g, y=g
+Two equal number meaning
+lcm = g
+No matter how many times k you appy => max sum=2^g
+*/

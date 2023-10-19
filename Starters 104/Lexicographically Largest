@@ -1,0 +1,115 @@
+/* MAGIC STEP TO BRUTE FORCE */
+import java.util.*;
+class Codechef{
+	public static void main (String[] args){
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    int m=sc.nextInt(); //upperbound
+		    int arr[] = new int[n];
+		    for(int i=0;i<n;i++){
+		        arr[i]=sc.nextInt();
+		    }
+		    int b[] = new int[n];
+		    b[0]=arr[0];
+		    for(int i=1;i<n;i++){
+		        b[i]=solve(arr[i], m, arr[i-1]);
+		    }
+		    for(int i=0;i<n;i++){
+		        System.out.print(b[i]+" ");
+		    }
+		    System.out.println();
+		}
+	}
+	
+	public static int solve(int gcd, int m, int prevgcd){
+	    int num=m/gcd;
+	    num*=gcd;
+	    for(int i=x;i>=1;i-=gcd){	//we iterate backwards to get the largest value first
+	        if((i%gcd==0)){
+	            if(GCD(prevgcd, i)==gcd) return i;
+	        }
+	    }
+	    return 1;
+	}
+	
+	public static int GCD(int a, int b){
+	    if (b == 0) return a;
+	    if(a==b) return a;
+        else return GCD(b, a % b);
+    }
+}
+
+
+
+/*
+LOGIC---
+If you understood brute force till now,
+We will add the magic step.
+
+We need to find the largest number that is num<=m , such that gcd (num ,a[i-1])=a[i]. 
+So we find the maximum number which is <=m and a[i] is a factor.
+something like num=m/a[i];
+now even if num is not a multiple of a[i], we just again multiply with a[i] to make it. 
+num*=a[i]
+Now we iterate from num to 1 and check which value 
+To reduce the number of iterations we know that the next gcd fulfilling value will only exist, when each step is reduced by gcd itself.
+
+*/
+
+
+/* O(n*m) TLE */
+import java.util.*;
+class Codechef{
+	public static void main (String[] args){
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    int m=sc.nextInt(); //upperbound
+		    int arr[] = new int[n];
+		    for(int i=0;i<n;i++){
+		        arr[i]=sc.nextInt();
+		    }
+		    int b[] = new int[n];
+		    b[0]=arr[0];
+		    for(int i=1;i<n;i++){
+		        b[i]=solve(arr[i], m, arr[i-1]);
+		    }
+		    for(int i=0;i<n;i++){
+		        System.out.print(b[i]+" ");
+		    }
+		    System.out.println();
+		}
+	}
+	
+	public static int solve(int gcd, int m, int prevgcd){
+	    int el=0;
+	    for(int i=1;i<=m;i++){
+	        if((i%gcd==0)){
+	            if(GCD(prevgcd, i)==gcd) el=Math.max(el, i);
+	        }
+	    }
+	    return el;
+	}
+	
+	public static int GCD(int a, int b){
+	    if (b == 0) return a;
+	    if(a==b) return a;
+        else return GCD(b, a % b);
+    }
+}
+
+/*
+LOGIC---
+Conclusion: a[0] = gcd(b[0]) = b[0]
+
+Now,
+a[i] = gcd(b[0], b[1],.... b[i])
+=> a[i] = gcd(gcd(b[0], b[1],...b[i-1]), b[i])
+=> a[i] = gcd(a[i-1], b[i])
+Now since we have got an upper bound for b as m
+We check which is the largest possible element by checking from 1->m for each b[i] since we already know a's
+Now calculate max sum
+*/

@@ -1,0 +1,57 @@
+import java.util.*;
+class Codechef{
+	public static void main (String[] args){
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    int arr[] = new int[n];
+		    int sorted=1;
+		    int sum=0;
+		    for(int i=0;i<n;i++){
+		        arr[i]=sc.nextInt();
+		        sum+=arr[i];
+		        if(i>0 && arr[i]<arr[i-1]) sorted=0; 
+		    }
+		    if(sorted==1) System.out.println(sum);
+		    else{
+		        int greatL[] = new int[n];
+		        greatL[0]=arr[0];
+		        int greatR[] = new int[n];
+		        greatR[n-1]=arr[n-1];
+		        for(int i=1;i<n;i++){
+		            if(greatL[i-1]>arr[i]) greatL[i]=greatL[i-1];
+		            else greatL[i]=arr[i];
+		        }
+		        for(int i=n-2;i>=0;i--){
+		            if(greatR[i+1]>arr[i]) greatR[i]=greatR[i+1];
+		            else greatR[i]=arr[i];
+		        }
+		        long sum2=arr[0]+arr[n-1];
+		        for(int i=1;i<n-1;i++){
+		            arr[i]=Math.max(arr[i], Math.min(greatL[i], greatR[i]));
+		            sum2+=arr[i];
+		        }
+		        System.out.println(sum2);
+		    }
+		}
+	}
+}
+
+/*
+LOGIC---
+Observation---
+Case I: sorted
+If array is sorted or all elements equal => you shouldn't apply the operation as it will nver help to increase the value.
+In such case just output their sum.
+
+Case II: Unsorted
+We cannot apply operation on first and last element.
+Calculate for each index in betwen the max great on their left and maxgreat on their right.
+This will help to decide to pick which element form left or right if we want an exchange.
+Now check if element is less than the greatL and greatR. Now pick the smaller of the two and apply the operation.
+
+Now calculate sum finally.
+*/
+
+

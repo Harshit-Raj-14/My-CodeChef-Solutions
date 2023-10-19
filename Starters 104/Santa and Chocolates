@@ -1,0 +1,54 @@
+import java.util.*;
+class Codechef{
+	public static void main (String[] args){
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt(); //no of children
+		    int k=sc.nextInt(); //difference of choclates atmost
+		    int sum=0;
+		    int arr[] = new int[n];
+		    for(int i=0;i<n;i++){
+		        arr[i]=sc.nextInt();
+		        sum+=arr[i];
+		    }
+		    if(n>sum) System.out.println("NO");
+		    else if(sum%n==0) System.out.println("YES");
+		    else{
+		        int val=0;
+		        //distribute first everyone equal
+		        int left = sum%n;
+		        int equal=sum-left; //let this be groudn state=0;
+		        int ans[] = new int[n];
+		        int index=0;
+		        while(left!=0){
+		            if(index>=n) index=0;
+		            ans[index]++;
+		            index++;
+		            left--;
+		        }
+		        if(ans[0]-ans[n-1]>k) System.out.println("NO");
+		        else System.out.println("YES");
+		    }
+		}
+	}
+}
+
+/*
+LOGIC---
+Objective : to distribute the candies in such a way that the atmost diffenrece between any two children is k.
+
+Case I: n>sum => no of children more thna number of cnadies => failed
+As each child need to have atleast one candy
+
+Case II : sum%n==0 => each child cna have sum/n candies wiht differnece 0
+
+Case III: sum>n => A general case
+First we try to say we distributed equal candies to all that is : equal= sum - (sum%n)
+So, left candies = sum%n
+Now we try to distribute these cnadies in loop
+The max diffenrece will exist between first elemtn and last element
+If that differnece is greater than k we fail otherwise pass
+
+*/
+
