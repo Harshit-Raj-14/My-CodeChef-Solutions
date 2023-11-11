@@ -1,0 +1,41 @@
+import java.util.*;
+class Codechef{
+	public static void main (String[] args) throws java.lang.Exception{
+	    Scanner sc = new Scanner(System.in);
+	    int t=sc.nextInt();
+	    while(t-->0){
+	        int n=sc.nextInt();
+	        if(n==1) System.out.println("Bob"); //1 is no odd prime factor, alice cannot make a move
+	        else{
+	            if(n%2==0) System.out.println("Bob");   //when n is even
+	            else System.out.println("Alice");   //when n is odd
+	        }
+	    }
+	}
+}
+
+/*
+LOGIC---
+Observe the given sample test cases carefully and dry run n = [0,10]. 
+The conclusion is: if the n is even or without any prime factors : Bob will win.
+If the n is odd : Alice will win.
+
+GENERALISE:
+Case I: n=1,2 -> 1,2 is no odd prime factor, alice cannot make a move => Bob wins
+
+Case II: n is even : 
+p is odd prime factor of n 
+if n = x*p 
+=> n - p = x*p - p 
+=> n-p = (x - 1).p 
+=> p is also prime factor of (n-p) 
+=> Bob will always repeat what Alice does until n=0 or no odd prime factors left. So Alice will lose and Bob will win.
+
+Case III: n is odd :
+then n - p is even and above cycle will repeat and Bob will lose => Alice wins
+After removing an odd prime factor from n which is odd. You will get an even number.
+
+
+Note - 2 is the only even prime number.
+All the other prime numbers are odd.
+*/

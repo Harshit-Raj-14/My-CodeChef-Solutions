@@ -1,0 +1,37 @@
+/* SLIDING WINDOW */
+import java.util.*;
+class Codechef{
+	public static void main (String[] args){
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    int k=sc.nextInt();
+		    int arr[] = new int[n];
+		    int isOdd[] = new int[n];
+		    for(int i=0;i<n;i++){
+		        arr[i]=sc.nextInt();
+		        isOdd[i] = arr[i] & 1; 
+		    }
+		    int ans = 0;
+		    int count = 0;  //count of odd numbers
+		    for(int i=0;i<n;i++){
+		        count+=isOdd[i];    //to see that if we have odd numbers in hand or not
+		        if(i>=k) count-=isOdd[i-k]; //to remove a number of the previous slide
+		        if(i>=k-1){     //checking if it is a vlaid slide; note we have starting from 0 thats why : i>=k-1
+		            if(count>0) ans++;
+		        }
+		    }
+		    System.out.println(ans);
+		}
+	}
+}
+
+/*
+Any number will be odd if its RMB(right most bit) is 1.
+Since we are finding OR all we need is one odd.
+Hence if we have atleast one number in OR whose MSB is 1 that subarray bitwise will be odd.
+Since we need to find subarrays of length K.
+Use sliding window of length K.
+If even one numbe ris odd in window it will be counted as valid.
+*/

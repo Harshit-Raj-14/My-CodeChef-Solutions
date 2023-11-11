@@ -1,0 +1,34 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            for(int i=n;i>0;i--){
+                System.out.print(i+" ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+/*
+LOGIC---
+Objective: Form an array such that : a[i] != a[i-1] | a[i-2]
+
+BASIC RULE OF OR : When you OR two things their value is greater than their own.
+a|b=x => x>a,b as long as a!=b
+
+Since, a1 a2 a3 exist in sequence and are not equal;
+if we have: a1<a2<a3
+to make sure a[i] != a[i-1] | a[i-2]
+We would want that a[i] should be less than either of a[i-1], a[i-2]
+
+So, if 1,2,3 => 1,3,2 or, 2,3,1 or, 3,2,1 can be our answers
+
+Henc eif we just reverse print n->1 this will be our answer.
+As a[i-1] | a[i-2] will always produce a greater value but our a[i] by reversing the series becoems smaller.
+
+*/
