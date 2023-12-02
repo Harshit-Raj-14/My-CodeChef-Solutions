@@ -1,0 +1,13 @@
+import java.util.*;
+class Codechef{
+	public static void main (String[] args) throws java.lang.Exception{
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int x = sc.nextInt();
+		    float earn = (float)(x*20)/(float)100;
+		    if((float)100/(float)earn>(int)(100/earn)) System.out.println((int)((float)100/(float)earn) +1);
+		    else System.out.println((int)((float)100/(float)earn));
+		}
+	}
+}

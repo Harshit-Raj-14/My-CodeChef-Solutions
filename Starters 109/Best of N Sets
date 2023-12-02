@@ -1,0 +1,22 @@
+import java.util.*;
+class Codechef{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int x=sc.nextInt();
+            int y=sc.nextInt();
+            int max = Math.max(x,y);
+            int min = Math.min(x,y);
+            int diff=max-min;
+            int totalplayed=x+y;
+            int left =diff-1;    //no of left matches in which loser cannot catch up
+            System.out.println(totalplayed + left);
+        }
+    }
+}
+
+/*
+LOGIC---
+
+*/

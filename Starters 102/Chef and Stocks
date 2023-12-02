@@ -1,0 +1,32 @@
+import java.util.*;
+class Codechef{
+	public static void main (String[] args) throws java.lang.Exception{
+	    Scanner sc = new Scanner(System.in);
+	    int t=sc.nextInt();
+	    while(t-->0){
+	        int n=sc.nextInt();
+	        int arr[] = new int[n];
+	        for(int i=0;i<n;i++){
+	            arr[i]=sc.nextInt();
+	        }
+	        Arrays.sort(arr);
+	        int sum=0;
+	        for(int i=1;i<arr.length;i++){
+	            sum+=arr[i];
+	        }
+	        System.out.println(sum);
+	    }
+	}
+}
+
+/* 
+LOGIC---
+Sort the array
+first element is the samllest element
+the sum without the smallest elemnt will be your answer
+O(nlogn)
+
+Note : there is an O(n) answer as well just, find the minimum number.
+Find sum of complete array.
+Subtract the minimum number from it.
+*/

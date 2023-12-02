@@ -1,0 +1,181 @@
+/* CLEAN ELEGANT CODE */
+import java.util.*;
+class Codechef{
+    public static long fact(int n){
+        int m=1000000007;
+        long ans=1;
+        while(n>0){
+            ans=ans*n;
+	        ans=ans%m;
+	        n--;
+        }
+        return ans;
+    }
+	public static void main (String[] args) throws java.lang.Exception{
+		Scanner sc = new Scanner(System.in);
+	    int t=sc.nextInt();
+	    while(t-->0){
+	        int n=sc.nextInt();
+	        int k=sc.nextInt();
+	        int arr[] = new int[n];
+	        for(int i=0;i<arr.length;i++){
+	            arr[i]=sc.nextInt();
+	        }
+	        if(n==1){System.out.println(1); continue;}
+	        long ans=1;
+	        int m=1000000007;
+	        int countodd=0;
+	       int counteven=0;
+	       for(int i=0;i<n;i++){
+	           if(arr[i]%2==0) counteven++;
+	           else countodd++;
+	       }
+	        if(k==0){ //Case I: arr[i]+arr[j]=even
+	            if(counteven==n || countodd==n){    //we either want all odd or all even
+	                ans=fact(n);   //ways to permute them will be n!
+	                System.out.println(ans);
+	            }
+	            else System.out.println(0);
+	        }
+	        else if(k==1){  //Case II: arr[i]+arr[j]=odd
+	            if(counteven==countodd){    //ways to permute them will be 2*(counteven! x countodd!)
+	                ans=((fact(counteven)%m)*(fact(countodd)%m))%m;
+	                System.out.println((ans*2)%m);
+	            }
+	            else if(Math.abs(counteven-countodd)==1){  //ways to permute them will be counteven! x countodd!
+	                ans=((fact(counteven)%m)*(fact(countodd)%m))%m;
+	                System.out.println(ans);
+	            }
+	            else System.out.println(0);
+	        }
+	    }
+	}
+}
+
+/*
+LOGIC---
+(i+j) -> odd (1-indexed)
+(a[i]+a[j])%2==k is true for entire array
+
+Now i+j can be odd only when:
+even+odd=odd So, either i or j are odd or even
+
+Now, (a[i]+a[j])%2 can be 1 or 0.
+If 1 => odd
+If 0 => even
+
+Case I: k=0 => a[i]+a[j] => even : (even+even, odd+odd) : 4 permutations for each pair(i,j)
+If i=1 => j=2,4,6,8...
+If i=2 => j=1,3,5,7,9...
+Pairs: (1,2), (1,4), (1,6)....(2,1), (2,5),....
+Now the values inside : if you put an even number in a[1].
+So, another even number should go in a[2].
+To fulfill the conditon of modulo being equal to 0(even sum),
+a[4],a[6],... a[5],a[7] => should also have even number inside them to fulfill the condition.
+
+Same if a[1] contained odd number, a[2] should be odd and so does...
+a[4],a[6],... a[5],a[7] => should also have odd number inside them.
+
+Conclusion for case I: if k=0
+we want the entire array to have even numbers or entirely odd numbers to fulfill the conditon.
+Also, the permutation will be (n)!.
+ 
+ 
+CasII : k=1 => a[i]+a[j]=> odd : (even+odd) : 2 permutation for each pair(i,j)
+If i=1 => j=2,4,6,8...
+If i=2 => j=1,3,5,7,9...
+Pairs: (1,2), (1,4), (1,6)....(2,1), (2,5),....
+Now the values inside : if you put an even number in a[1]. You want an odd numberin a[2].
+Also, becuase of a[1], now a[2],a[4],a[6],a[8] => need to have odd numbers inside them to fulfill the modulo condition of sum being odd.
+Similarly, becuase of a[2], now a[1],a[3],a[5],a[7].... need to have even number inside them.
+Same follows vice versa if a[1] were to be odd.
+
+Conclusion for case II : k=1
+index: 1,3,5,7,.... => if even then, 2,4,6,8 => odd => permutations : odd! x even!
+index: 1,3,5,7,.... => if odd then, 2,4,6,8 => even => permutations : odd! x even!
+
+Condition for array to exist : alternate odd and even. So, either occurences of odd and even are equal 
+then, total permutations : odd! x even! + odd! x even! = 2(odd! x even!)
+
+Or, occurences of odd and even only differ by one.
+then total permutations : odd! x even! (only one scenario possible of the above 2 formation)
+*/
+
+
+
+
+/* DRY CODE WITH ELABORATION OF ABOVE CODE SAME AS ABOVE */
+import java.util.*;
+class Codechef{
+	public static void main (String[] args) throws java.lang.Exception{
+		Scanner sc = new Scanner(System.in);
+	    int t=sc.nextInt();
+	    while(t-->0){
+	        int n=sc.nextInt();
+	        int k=sc.nextInt();
+	        int arr[] = new int[n];
+	        for(int i=0;i<arr.length;i++){
+	            arr[i]=sc.nextInt();
+	        }
+	        if(n==1){System.out.println(1); continue;}
+	        long ans=1;
+	        int m=1000000007;
+	        if(k==0){ //Case I: arr[i]+arr[j]=even
+	            int countodd=0;
+	            int counteven=0;
+	            for(int i=0;i<n;i++){
+	                if(arr[i]%2==0) counteven++;
+	                else countodd++;
+	            }
+	            if(counteven==n || countodd==n){    //we either want all odd or all even
+	                while(n>0){   //ways to permute them will be n!
+	                    ans=ans*n;
+	                    ans=ans%m;
+	                    n--;
+	                }
+	                System.out.println(ans);
+	            }
+	            else System.out.println(0);
+	        }
+	        else if(k==1){  //Case II: arr[i]+arr[j]=odd
+	            int countodd=0;
+	            int counteven=0;
+	            for(int i=0;i<n;i++){
+	                if(arr[i]%2==0) counteven++;
+	                else countodd++;
+	            }
+	            if(counteven==countodd){    //ways to permute them will be 2*(counteven! x countodd!)
+	                while(counteven>0){   
+	                    ans=ans*counteven;
+	                    ans=ans%m;
+	                    counteven--;
+	                }
+	                while(countodd>0){   
+	                    ans=ans*countodd;
+	                    ans=ans%m;
+	                    countodd--;
+	                }
+	                ans=ans*2;
+	                ans=ans%m;
+	                System.out.println(ans);
+	            }
+	            else if(Math.abs(counteven-countodd)==1){  //ways to permute them will be counteven! x countodd!
+	                while(counteven>0){   
+	                    ans=ans*counteven;
+	                    ans=ans%m;
+	                    counteven--;
+	                }
+	                while(countodd>0){   
+	                    ans=ans*countodd;
+	                    ans=ans%m;
+	                    countodd--;
+	                }
+	                System.out.println(ans);
+	            }
+	            else System.out.println(0);
+	        }
+	    }
+	}
+}
+
+

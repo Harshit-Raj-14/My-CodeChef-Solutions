@@ -1,0 +1,41 @@
+import java.util.*;
+class Codechef{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            int arr[] = new int[n];
+            int xor=0;
+            for(int i=0;i<n;i++){
+                arr[i]=sc.nextInt();
+                xor^=arr[i];
+            }
+            int min = xor;
+            for (int i=0;i<n;i++){
+                int temp = xor ^ arr[i];
+                min = Math.min(min, temp);
+            }
+            System.out.println(min);
+        }
+    }
+}
+
+/*
+LOGIC---
+First calculate xor of entire array.
+
+If xor itself of full array is 0 we don't need to remove any number and xor minimum of array =0
+
+But if xor of full array is not 0, then we start thinking of removing a number and find a new minimum of xor.
+
+We know that a^a=0
+Its like removing a number from xor calculation.
+
+Since, initial ful larray xor = a1 ^ a2 ^a3 .... and so on
+
+If we again do a1 ^ xor = a2 ^ a3 ^... and so on. sor new wihtout a1
+
+So, it creates an effect of finding a new xor without that number.
+Do it once again fro entire array and find the minimum xor.
+*/
