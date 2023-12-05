@@ -1,0 +1,64 @@
+/* O(1) FACT BASED SOLUTION */
+import java.util.*;
+class Codechef{
+	public static void main (String[] args){
+		Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            if(n<5) System.out.println(0+" "+n);
+            else if(n>=5) System.out.println(1+" "+(n-1)); 
+        }
+	}
+}
+
+LOGIC---
+11 is the only even length palindrome prime number.
+All other palindrome prime numbers are of odd length.
+
+
+
+
+/*BRUTE FORCE */
+import java.util.*;
+class Main{
+	public static void main (String[] args){
+		Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            int count=0;
+            int num=2;
+            int even=0;
+            int odd=0;
+            while(count!=n){
+                boolean prime = true;// to determine whether the number is prime or not
+                for (int i=2; i<=Math.sqrt(num); i++) { //efficiency matters
+                    if (num%i == 0){
+                        prime = false; // if number divides any other number its not a prime so set prime to false and break the loop.
+                        break;
+                    }
+                }
+                if(prime){
+                    if(isPalindrome(num)){
+                        String s = Integer.toString(num);
+                        if(s.length()%2==0) even++;
+                        else odd++;
+                        count++;
+                    }
+                }
+                num++;
+            }
+            System.out.println(even+" "+odd);
+        }
+        sc.close();
+	}
+	
+	public static boolean isPalindrome(int n){
+	    String s = Integer.toString(n);
+	    for(int i=0;i<s.length()/2;i++){
+	        if(s.charAt(i)!=s.charAt(s.length()-1-i)) return false;
+	    }
+	    return true;
+	}
+}
