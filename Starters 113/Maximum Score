@@ -1,0 +1,40 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            int arr[] = new int[n];
+            for(int i=0;i<n;i++){
+                arr[i]=sc.nextInt();
+            }
+            int score=0;
+            Stack<Integer> s = new Stack<>();
+            s.push(arr[0]);
+            for (int i = 1; i < n; i++){
+                if (s.isEmpty()) s.push(arr[i]);
+                else{
+                    int top = s.peek();
+                    if (s.peek() == arr[i]) s.push(arr[i]); //0/0 or 1/1 pair
+                    else{
+                        s.pop();
+                        score++; 
+                    }
+                }
+            }
+            System.out.println(score);
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+To get maximum score we would want a[i] and a[i+1] should be 0 and 1 pair. score+=1
+In all other cases 0/0 or 1/1 would give score = 0
+Since operation needs to be applied n/2 times.
+First we would want to find n/2 chances of 0/1 pair.
+And if any more chances ar eleft applying them won't affect the score.
+*/
