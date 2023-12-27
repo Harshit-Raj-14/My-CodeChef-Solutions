@@ -1,0 +1,39 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            int arr[] = new int[n];
+            for(int i=0;i<n;i++){
+                arr[i]=sc.nextInt();
+            }
+            int leftgreatest[] = new int[n];
+            leftgreatest[0]=arr[0];
+            for(int i=1;i<n;i++){
+                if(arr[i]>leftgreatest[i-1]) leftgreatest[i]=arr[i];
+                else leftgreatest[i] = leftgreatest[i-1];
+            }
+            int ans=0;
+            for(int i=1;i<n;i++){
+                if(arr[i]<leftgreatest[i-1]) ans++;
+            }
+            System.out.println(ans);
+        }
+	}
+}
+
+
+/*
+LOGIC---
+Even if a single leftgreatest element occurs at position i-1 which turns out to be a greater number than at position i.
+The position i will recieve a chocolate.
+
+Its something along the line thinking agar koi bada admi mere se pehle ho toh humko chocolate milega.
+*/
