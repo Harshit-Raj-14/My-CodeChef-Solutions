@@ -1,0 +1,39 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int arr[] = new int[n];
+            TreeSet<Integer> set = new TreeSet<>();
+            for (int i = 0; i < n; i++) {
+                arr[i] = sc.nextInt();
+                set.add(arr[i]);
+            }
+            List<Integer> list = new ArrayList<>(set);
+            int ans = 1; 
+            for (int i = 0; i < list.size(); i++) {
+                int key = list.get(i) + n - 1; 
+                int fit = binarySearch(list, key) - i;
+                ans = Math.max(ans, fit);
+            }
+            System.out.println(ans); 
+        }
+    }
+
+    private static int binarySearch(List<Integer> list, int value) {
+        int low = 0;
+        int high = list.size();
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (list.get(mid) <= value) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return low;
+    }
+}

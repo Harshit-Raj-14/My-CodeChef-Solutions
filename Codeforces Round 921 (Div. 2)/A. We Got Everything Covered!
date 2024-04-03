@@ -1,0 +1,25 @@
+import java.util.*;
+public class main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            int k=sc.nextInt();
+            StringBuilder sb = new StringBuilder("");
+            for(int i=0;i<k;i++){
+                sb.append((char)('a' + i));
+            }
+            StringBuilder ans = new StringBuilder("");
+            for(int i=0;i<n;i++){
+                ans.append(sb);
+            }
+            System.out.println(ans);
+        }
+    }
+}
+
+/*
+LOGIC---
+
+*/

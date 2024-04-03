@@ -1,0 +1,28 @@
+import java.util.*;
+public class main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            String a = sc.next();
+            String b = sc.next();
+            String c = sc.next();
+            StringBuilder sb = new StringBuilder("ABC");
+            if(a.indexOf('?')!=-1){
+                if(a.indexOf('A')==-1) System.out.println('A');
+                else if(a.indexOf('B')==-1) System.out.println('B');
+                else if(a.indexOf('C')==-1) System.out.println('C');
+            }
+            else if(b.indexOf('?')!=-1){
+                if(b.indexOf('A')==-1) System.out.println('A');
+                else if(b.indexOf('B')==-1) System.out.println('B');
+                else if(b.indexOf('C')==-1) System.out.println('C');
+            }
+            else{
+                if(c.indexOf('A')==-1) System.out.println('A');
+                else if(c.indexOf('B')==-1) System.out.println('B');
+                else if(c.indexOf('C')==-1) System.out.println('C');
+            }
+        }
+    }
+}

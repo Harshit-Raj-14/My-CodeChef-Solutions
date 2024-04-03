@@ -1,0 +1,26 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int k = sc.nextInt();
+            if(k<4*n-2){
+                if(k%2==0) System.out.println(k/2);
+                else System.out.println((k+1)/2);
+            }
+            else{   //case : k==4*n-2 => ans=2*n => all boxes will be used
+                System.out.println(2*n + (k-(4*n-2)));      //System.out.println(2*n);  is also correct
+            }
+        }
+    }
+}
+
+/*
+LOGIC---
+The top and bottom boxes are enough to conver all diagonals(4*n-2).
+We do -2 becuase two main diagonals will be covered in the side squares.
+Best is see the explanation of second testcase.
+*/

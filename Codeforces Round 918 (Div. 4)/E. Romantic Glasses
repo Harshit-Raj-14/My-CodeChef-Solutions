@@ -1,0 +1,43 @@
+import java.util.*;
+public class main1{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+        while(t-->0){
+            int n=sc.nextInt();
+            int arr[] = new int[n+1];
+            for(int i=1;i<n+1;i++){
+                arr[i]=sc.nextInt();
+            }
+            int possible=0;
+            HashMap<Long, Integer> map = new HashMap<>();
+            long odd=0, even=0;
+            for(int i=1;i<=n;i++){
+                if(i%2!=0) odd+=arr[i];
+                else even+=arr[i];
+                long diff=odd-even;
+                if(diff==0 || map.containsKey(diff)){
+                    possible=1;
+                    break;
+                }
+                map.put(diff, i);
+            }
+            if(possible==1) System.out.println("YES");
+            else System.out.println("NO");
+        }
+    }
+}
+
+/*
+LOGIC 
+A square is made by nxn.
+So, for a square to exist we should have n^2 smaller squares.
+So, just check whether the sum is a perfect square or not.
+
+After a lot of contemplation realsied back se dekhna zayda asan padega
+kiyuki shuruat hamesa C se hogi
+Magar back side mei kuch bhi ho sakta hai toh pattern samjhna zaruri hai
+agar 
+C end mei hai to end CVC hoga
+agar V end mei hai to CV se end hoga
+*/
