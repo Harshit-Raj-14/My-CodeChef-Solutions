@@ -1,0 +1,57 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    int x=sc.nextInt();
+		    int y=sc.nextInt();
+            String s = sc.next();
+            int X=0;
+            int Y=0;
+            int bobwins=0;
+            for(int i=0;i<s.length();i++){
+                char c= s.charAt(i);
+                if(c=='U') Y++;
+                else if(c=='D') Y--;
+                else if(c=='R') X++;
+                else if(c=='L') X--;
+                int dx = Math.abs(x-X);
+                int dy = Math.abs(y-Y);
+                int d=dx+dy;
+                // Check if Bob can reach Alice's position at this second
+                if (d<=i+1 && d%2==(i+1)%2) bobwins=1;
+            }
+            if(bobwins==1) System.out.println("YES");
+            else System.out.println("NO");
+		}
+	}
+}
+
+
+/*
+LOGIC---
+first let’s compute where Alice’s robot will be: say (xi,yi).
+This can be found by just directly simulating movements.
+
+Now, if Bob is to reach exactly this position, 
+note that he must make ∣xi−X∣ horizontal moves and ∣yi−Y∣ vertical moves.
+
+So, if ∣xi−X∣+∣yi−Y∣>i, Bob definitely cannot reach this position, no matter what - he simply doesn’t have enough movement to do so.
+where, i would logically stand as no of secodns passed, or no. of moves allowed
+
+On the other hand, if ∣xi−X∣+∣yi−Y∣<i, Bob has some ‘extra’ moves left with him that need to be exhausted.
+If these extra moves are even in number, Bob can easily use them all up (for example, alternate moving up and down), 
+and still be at (xi,yi) after i seconds have passed.
+
+If the number of extra moves is odd, there is no way for Bob to ever remain at (xi,yi) after using them all up.
+
+So, once xi and yi are known, we can figure out whether Bob can reach (xi,yi) in exactly ii moves with a couple of simple checks.
+*/
+

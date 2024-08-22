@@ -1,0 +1,177 @@
+/* O(n) */
+import java.util.*;
+class Codechef {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int arr[] = new int[n];
+            int loc[][] = new int[4][2]; //location of first and last index of 1,2,3
+            for (int i = 0; i < 4; i++) {
+                Arrays.fill(loc[i], -1);
+            }
+            for (int i = 0; i < n; i++) {
+                arr[i] = sc.nextInt();
+                if (loc[arr[i]][0] == -1) loc[arr[i]][0] = i;
+                loc[arr[i]][1] = i;
+            }
+            long total_substrings = (n*(long)(n+1))/2; //total number of substrings
+            long bad_substrings=0;
+            // Handling all cases for making 1 disappear
+            int c3 = 0;
+            for (int i = loc[1][0]; i <= loc[1][1]; i++){   //change all 1 to 2, but fails if 3 present too
+                if (arr[i] == 3) {  //if there is a 3, no valid pair exists
+                    c3 = 1;
+                    break;
+                }
+            }
+            if(c3 == 0){    //if 3 not present how long can we make this bad substrign by extending on both sides
+                int l = 1;   //(l1-x) => difference between first occurence of 1 and (first occurence of 3)+1
+                int r = 1;  //(y-r1) => first occurence of 3 from right -1 and difference between last occurence of 1 
+                for (int i = loc[1][0] - 1; i >= 0; i--, l++) {
+                    if (arr[i] == 3) break;
+                }
+
+                for (int i = loc[1][1] + 1; i < n; i++, r++) {
+                    if (arr[i] == 3) break;
+                }
+                bad_substrings += l * (long) r;
+            }
+            
+            // Handling all cases for 2
+            int c1 = 0;
+            for (int i = loc[2][0]; i <= loc[2][1]; i++) {
+                if (arr[i] == 1) {
+                    c1 = 1;
+                    break;
+                }
+            }
+
+            if (c1 == 0) {
+                int l = 1, r = 1;
+                for (int i = loc[2][0] - 1; i >= 0; i--, l++) {
+                    if (arr[i] == 1) break;
+                }
+                for (int i = loc[2][1] + 1; i < n; i++, r++) {
+                    if (arr[i] == 1) break;
+                }
+                bad_substrings += l * (long) r;
+            }
+            
+            // Handling all cases for 3
+            int c2 = 0;
+            for (int i = loc[3][0]; i <= loc[3][1]; i++) {
+                if (arr[i] == 2) {
+                    c2 = 1;
+                    break;
+                }
+            }
+            if (c2 == 0) {
+                int l = 1, r = 1;
+                for (int i = loc[3][0] - 1; i >= 0; i--, l++) {
+                    if (arr[i] == 2) break;
+                }
+                for (int i = loc[3][1] + 1; i < n; i++, r++) {
+                    if (arr[i] == 2) break;
+                }
+                bad_substrings += l * (long) r;
+            }
+            System.out.println(total_substrings - bad_substrings);
+        }
+    }
+}
+
+/*
+LOGIC---
+Rather than count “good” subarrays which give us the result we want, let’s instead count “bad” subarrays, 
+on which performing the operation leaves us with strictly less than 3 distinct elements.
+
+This count can then be subtracted from the total number of subarrays, which equals n*(n+1)/2.
+
+One of the numbers must be missing after the operation - let’s fix this missing number to be 1, and see how many different operations cause this to happen.
+First, since 1 is missing in the final array, every occurrence of 1 in arr must lie within the subarray we choose - all of these occurrences will turn into 2 (and so every 1 will disappear).
+Let l1 and r1 denote the leftmost and rightmost indices that contain 1.
+
+On the other hand, the subarray we choose also shouldn’t contain any occurrence of 3: if it did, the 3 would become 1 after the operation, which we don’t want.
+So, there should be no 3's at indices between l1 and r1.
+In particular, observe that if there is a 3 between l1 and r1, no valid pair of (l,r) can ever exist.
+
+Finally, we’re left with the case where there isn’t a 3 between l1 and r1.
+Here, let x<l1 be the closest occurrence of 3 to the left of l1, and y>r1 be the same to the right of r1.    //basically outside range of l1,r1 on both sides check for occurence of 3.
+We can then choose any L such that x<L<l1, and any R such that r1<R<y.
+So, we obtain (l1 - x) * (y - r1) subarrays in total.
+
+The above discussion was for subarrays that eliminate 1 after the operation.
+Repeat the process to count subarrays that eliminate 2 and 3, and add all three up to get the required number of “bad” subarrays.
+Note that it’s impossible for more than one value to be eliminated (do you see why?), so there’s no overcounting going on here.
+All necessary indices can be found in linear time by just iterating through the array
+
+Approach---
+ans = total substrings - invalid substrings
+store first and last index of 1,2,3 in loc [][] array.
+
+Case I: for 1
+=> if between first and last index, 3 is not present then it will be an invalid string
+-> all 1 will become 2 and there will be no 1 left 
+So, we need presence of 3 to be guarnateed, for it to be consdiered a good substring candidate
+
+=> Now extend this substring on both sides to see how many invalid substrings are there for 1.
+
+Do same for 2 & 3 
+*/
+
+
+/* O(n^2) TLE */
+import java.util.*;
+class Codechef{
+	public static void main (String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int t=sc.nextInt();
+		while(t-->0){
+		    int n=sc.nextInt();
+		    int arr[] = new int[n];
+		    int count[] = new int[4];
+		    for(int i=0;i<n;i++){
+		        arr[i]=sc.nextInt();
+		        count[arr[i]]++;
+		    }
+		    int ans=0;
+		    for(int i=0;i<arr.length;i++){
+		        int c1 = 0, c2 = 0, c3 = 0;
+		        for(int j=i;j<arr.length;j++){  //making counts of 1,2,3 here in the subarray itself avoids recalculation by acting like a sliding window
+		            if(arr[j]==1) c1++;
+	                if(arr[j]==2) c2++;
+	                if(arr[j]==3) c3++;
+		            if(good(arr,count,c1,c2,c3)) ans++;
+		        }
+		    }
+            System.out.println(ans);
+		}
+	}
+	
+	public static boolean good(int arr[], int count[], int c1, int c2, int c3){
+	    if(c1>0 && c2>0 && c3>0) return true;
+	    else if(count[1]-c1>0 && count[2]-c2>0 && count[3]-c3>0) return true;
+	    else{
+	        int o1=count[1]-c1; //other part of array
+	        int o2=count[2]-c2;
+	        int o3=count[3]-c3;
+	        //it would be dififcult to write possiblities where it passes, so write for fail
+	        if(o1==0 && c3==0) return false;   //cannot get 1
+	        if(o2==0 && c1==0) return false;   //cannot get 2
+	        if(o3==0 && c2==0) return false;   //cannot get 2
+	    }
+	    return true;
+	}
+}
+
+/*
+LOGIC---
+Case I: Any subarray that has 1,2,3 will do the trick.
+Case II: Or the other half of the array without subarray would still do the trick. 
+
+Case III: Or, the subarray can become one of the elements, not present in the other half.
+But finding this can eb tough.
+So, what we do is look for subarrays, which cannot produce one of the elements in the other part of array.
+*/
