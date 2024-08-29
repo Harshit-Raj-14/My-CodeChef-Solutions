@@ -1,0 +1,46 @@
+import java.util.*;
+
+class Codechef {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0){
+            int n = sc.nextInt();
+            String s = sc.next();
+            int valid_indexes=0;
+            for(int i=0;i<n-1;i++){
+                if(s.charAt(i)!=s.charAt(i+1)) valid_indexes++;
+            }
+            long invalid_indexes = n-valid_indexes-1;
+            long beauty=0; //final score
+            beauty=invalid_indexes*valid_indexes;    //score coming after removing all invalid indexes
+            long curr_size=valid_indexes-1;    //now the remaining string size is equal to valid indexes-1, last character won't contribute
+            beauty+=(curr_size)*(curr_size+1)/2;
+            System.out.println(beauty);
+        }
+        sc.close();
+    }
+}
+
+
+/*
+LOGIC---
+Case I: all indices are valid, all adjacent elements are different
+Let's say we start with a string that has all valid indices like 
+s= 10101010 (all adjacent elements are different)
+size = 8, valid indexes socre = 7(1 to 6 as t(i)!=t(i+1))
+If we start the beautify process, the next optimum step would be to remove the last char and we end up with a size of 7 and score of 6   
+As we continue this process, score 6+5+4+3+2+1+0 = (size-2)(size-1)/2
+
+Case II: not all adjacent elements are different
+since we have only 1 and 0, that menas no adjacent are not diffrnt means they are same.
+eg  : s= 1001011
+Here the valid indexs are: 0,2,3,4 => total 4 valid score starting
+let's say we remove one equal 0 => s=101011 => valid indexes are:0,1,2,3 => total valid score still remains same
+
+Conclusion: when you remove an adjacent element which is same they do not change the score
+
+Strategy: first rmeove all adjacent elements that are equal to continue adding the intial score. and once all are valid indexes we can use case I formula.
+
+
+*/

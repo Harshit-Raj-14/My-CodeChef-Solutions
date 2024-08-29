@@ -1,0 +1,44 @@
+import java.util.*;
+
+class Codechef {
+    public static void main (String[] args){
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-->0){
+            int n = sc.nextInt();
+            int arr[] = new int[n];
+            long sum = 0;
+            int negcount = 0;
+            int min = Integer.MAX_VALUE;    // the most minimum absolute value in arr
+            boolean containzero = false;
+            
+            for (int i = 0; i < n; i++) {
+                arr[i] = sc.nextInt();
+                sum += Math.abs(arr[i]);  // Sum of absolute values
+                if (arr[i] < 0) negcount++;
+                if (arr[i] == 0) containzero = true;
+                min = Math.min(min, Math.abs(arr[i]));
+            } 
+            
+            if (negcount % 2 != 0 && !containzero) {
+                // If we have an odd number of negative numbers and no zero, subtract twice the smallest absolute value
+                sum -= 2 * min;
+            }
+            
+            System.out.println(sum);
+        }
+        sc.close();
+    }
+}
+
+
+
+/*
+ * LOGIC---
+ * Don't think that you cna only convert negative to positives. 
+ * But you can also convert positive to negative if you are advantaged with a much bigger negative number.
+ * 
+ * Now there can be also a scenario like -4,,2,3,4 => so we can still convert -1 to +ve with 0.
+ * 
+ * Hence we might only need to remove the minimum number from sum if we don't have any zeroes to compensate with it.
+ */
