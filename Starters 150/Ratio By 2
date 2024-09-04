@@ -1,0 +1,58 @@
+import java.util.*;
+
+class Codechef
+{
+    public static void main (String[] args) throws java.lang.Exception
+    {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-- > 0) {
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            int x2 = 2 * x;
+            int y2 = 2 * y;
+            if (x >= y2 || y >= x2) {
+                System.out.println(0);
+            } else {
+                int ans1 = 0, ans2 = 0;
+                
+                int t1 = x, t2 = y;
+                while (2 * t2 > t1) {
+                    t2--;
+                    ans1++;
+                }
+                
+                t1 = x;
+                t2 = y;
+                while (2 * t2 > t1) {
+                    t1++;
+                    ans2++;
+                }
+                
+                int ans3 = 0, ans4 = 0;
+                
+                t1 = x;
+                t2 = y;
+                while (2 * t1 > t2) {
+                    t1--;
+                    ans3++;
+                }
+                
+                t1 = x;
+                t2 = y;
+                while (2 * t1 > t2) {
+                    t2++;
+                    ans4++;
+                }
+                
+                int ans = Math.min(Math.min(ans1, ans2), Math.min(ans3, ans4));
+                System.out.println(ans);
+            }
+        }
+    }
+}
+
+/*
+ * LOGIC---
+ * Explore all cases and the two subcases inside them that is opposite of the given condition.
+ */

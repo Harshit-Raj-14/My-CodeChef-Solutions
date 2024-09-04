@@ -1,0 +1,31 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-- > 0) {
+            int n = sc.nextInt();
+            int k = sc.nextInt();
+            ArrayList<Integer> arr = new ArrayList<>();
+            for(int i=0;i<n;i++){
+                arr.add(sc.nextInt());
+            }
+            while(k-->0){
+                int x=arr.get(0);
+                int y=arr.get(arr.size()-1);
+                arr.remove(arr.size()-1);
+                arr.remove(0);
+                arr.add(x+y);
+            }
+            for(int i=0;i<arr.size();i++){
+                System.out.print(arr.get(i)+" ");
+            }
+            System.out.println();
+        }
+	}
+}
