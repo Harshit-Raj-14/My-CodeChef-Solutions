@@ -1,0 +1,59 @@
+import java.util.*;
+class Codechef{
+	public static void main (String[] args){
+		Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-- > 0) {
+            int n = sc.nextInt();
+            int m = sc.nextInt();
+            String[] s = new String[m];
+            for (int i = 0; i < m; i++) {
+                s[i] = sc.next();
+            }
+            long ans=0;
+            for (int i=0; i<n; i++){    //iterate through all positions of string
+                long count0 = 0, count1 = 0, countq = 0;
+                for (int j = 0; j < m; j++){    //checking for bits of all strings at index i
+                    char c = s[j].charAt(i);
+                    if (c=='0') count0++;
+                    else if (c=='1') count1++;
+                    else countq++;
+                }
+                long mult=0;
+                if (countq==0) mult = count0 * count1;
+                else{   //explore all possibility of turning ? either into 0 or 1
+                    for (int q=0; q<=countq; q++){
+                        long extra1 = q;
+                        long extra0 = countq-q;
+                        mult=Math.max(mult, (count1+extra1)*(count0+extra0));
+                    } 
+                }
+                ans+=mult; 
+            }
+            System.out.println(ans);
+        }
+	}
+}
+
+
+/*
+LOGIC---
+The Hamming distance between two strings of equal length is the number of positions at which the corresponding characters are different.
+Hence for binary strings hamming distance is the differnec eof count of 0 and 1s.
+
+Now we want the maximum hamming distance between all pairs of strings.
+
+Since we have m strings. And strings have ?
+We also need to account what can replace ?
+
+Hamming distance = count of 0 - count of 1
+Since ? is at a certain point.
+For any index i to get maximum hamming distance:
+=> (count of 0 in all strings at i) * (count of 1 in all strings at i) +- (count of ? in all strings at ?)
+We are multiplying because we are taking pairs of all strings for hamming distanc enad not just between two strigns where we would have done simple subtraction.
+
+So, we can maximise hamming distance by replacing the ? either with 0 or 1.
+
+Explore all possibility of turning ? into 0 or 1 and finding what gives maximum multiplication.
+
+*/

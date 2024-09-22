@@ -1,0 +1,101 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class Codechef{
+    public static void main (String[] args) throws java.lang.Exception{
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0) {
+            int n = sc.nextInt();
+            int q = sc.nextInt();
+            int[] arr = new int[n];
+            for(int i=0; i<n; i++){
+                arr[i] = sc.nextInt();
+            }
+            int[] c1 = new int[n];  //frequency prefix sums of 1,2,3
+            int[] c2 = new int[n];
+            int[] c3 = new int[n];
+            for (int i = 0; i < n; i++) {
+                if (arr[i] == 1) c1[i]++;
+                if (arr[i] == 2) c2[i]++;
+                if (arr[i] == 3) c3[i]++;
+            }
+            //make them prefix sums -> to denote frequency till that index
+            for(int i=1;i<n;i++){
+                c1[i]+=c1[i-1];
+                c2[i]+=c2[i-1];
+                c3[i]+=c3[i-1];
+            }
+            for(int i=0; i<q; i++) {
+                int l = sc.nextInt() - 1;  
+                int r = sc.nextInt() - 1;  
+                int len = r-l+1;
+                if (len%2 != 0) { //odd length array can never be antipalindromic so never beautiful
+                    System.out.println("NO");
+                    continue;
+                }
+                //find frequency of 1,2,3 in given range l,r
+                int f1=0, f2=0, f3=0;
+                if(l==0){
+                    f1=c1[r];
+                    f2=c2[r];
+                    f3=c3[r];
+                }
+                else{
+                    f1=c1[r]-c1[l-1];
+                    f2=c2[r]-c2[l-1];
+                    f3=c3[r]-c3[l-1];
+                }
+                if (f1==f2+f3 || f2==f1+f3 || f3==f1+f2) System.out.println("YES"); //check ofr the condition if any one of them is possible
+                else System.out.println("NO");
+            }
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+An array is anti-palindrome if no pair of its opposite elements are equal.
+a[i] != a[n-1-i] => basically at each point reverse of array and array should not be same.
+
+An array is beautiful if every cyclic rotation of it is an anti-palindrome.
+
+OBSERVATION:
+An odd length array will never be antipalindromic => becuase the mid element will be same in reverse and unfufill the condition.
+So, we only need to check ofr even length array.
+
+Objective: given a range of l to r on a string. tell whether this range can be rearranged to become beautiful.
+
+We have a fact that array only contains 1,2,3.
+
+IMAGINE--- case where we only have 2 elements.
+Now think about an array with only two numbers 1,2. How will you make it anti palindromic.
+To put all 1s and 2s against each other something like - [1,1,2,2]
+Let's also check its rotation: [2,1,1,2] => became palindromic, not beautiful
+Another arrangement: [1,2,1,2]
+Let's check its rotation: [2,1,2,1] antipalindromic -> [1,2,1,2] -> antipalindromic after all rotation
+=> [1,2,1,2] its beautiful and so will be [2,1,2,1]
+So if we had only 1,2 we could have made it by placing 1,2 alternately.
+
+Reason: imagine it as X Y X Y X Y X Y => ANTI-PALINDROME
+If you rotate it by bring Y forward you will form again an alternating sequence which will be anti palindrome : 
+Y X Y X Y X Y X Y X => ANTI PALINDROME => BEAUTIFUL
+
+OBSERVATION: since arr is even and we are placing 1 and 2 alternatively
+count of 1 == count of 2
+
+Apply the above logics to our question now.
+
+APPROACH---
+Now, what to do if array has 1,2,3?
+Place 1,2,3 alternatively.
+
+Gneral configuration should be : 
+X Y X Y X Y X Y X Z X Z X....... => you can rotate and check this will always form antipalidnrome and beautiful on rotation
+Notice X dominates while Y and Z are less.
+
+count of X = count of Y + count of Z
+and x,y,z can take any form of 1,2,3
+If the above condition satisfies for our array, we can always arrange it to be beautiful.
+*/
