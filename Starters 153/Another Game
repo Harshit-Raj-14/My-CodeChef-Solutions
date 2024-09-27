@@ -1,0 +1,30 @@
+import java.util.*;
+class Codechef{
+	public static void main (String[] args){
+		Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-- > 0) {
+            int n = sc.nextInt();
+            int arr[] = new int[n+1];   //array 1 indexed
+            for(int i=1;i<n+1;i++){
+                arr[i]=sc.nextInt();
+            }
+            long ans = 0;
+            for (int i=1; i<=n; i++) {
+                if (i!=arr[i]) ans = 1 + Math.max(i, arr[i]); //largest integer not at its correct place
+            }
+            System.out.println(ans);
+        }
+	}
+}
+
+/*
+LOGIC---
+We can only swap when arr[i]+arr[j]<=k. We need to find the smallest k to make array sorted.
+
+check the largest number which is not in its right index. 
+Then the answer is just (largest incorrect placed value + 1) because, we can swap every element with numebr 1 
+to make the array sorted.
+
+
+*/

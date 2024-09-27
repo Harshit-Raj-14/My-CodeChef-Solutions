@@ -1,0 +1,104 @@
+import java.util.*;
+class Codechef {
+    public static void main (String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int arr[] = new int[n];
+            for (int i = 0; i < n; i++){
+                arr[i] = sc.nextInt();
+            }
+            int maxXORValue = (1 << 20) + 5;    //from constraints
+            int[] count = new int[maxXORValue]; //frequency of pair of xor's
+            for(int i=0; i<n; i++){
+                for(int j=i+1; j<n; j++){    //we want all pairs
+                    int xor = arr[i]^arr[j];
+                    count[xor]++;
+                }
+            }
+            long ans = 0;
+            for (int i=0;i<count.length;i++){
+                int freq = count[i];
+                if (freq > 1) {
+                    ans += (long) (freq*(freq-1))/2; 
+                }
+            }
+            long all_pairs=2*4*ans;
+            System.out.println(all_pairs);
+        }
+        sc.close(); 
+    }
+}
+
+/*
+LOGIC---
+pair=(ai,aj,ak,al) 
+ai^aj, aj^ak, ak^al, ai^ai
+for rectangle : 
+ai^aj=ak^al=l
+aj^ak=al^ai=b
+XOR all four sides:
+=> (ai^aj) ^ (ak^al) ^ (aj^ak) ^ (al^ai)
+=> l^l^b^b
+=> 0
+
+So, in fact to make a pair of four distinct number, the xor of all four elements should be 0.
+FOUR SUM Problem.
+
+
+APPROACH---
+4≤N≤5000 => constraints means we can use n^2 => 2 for loops
+form pairs of xor for two elements.
+
+XOR Counting:
+We iterate through every possible pair of indices (i,j) and calculate the XOR, 
+storing it in the count freq table.
+
+Combination Calculation:
+For each unique XOR value, if there are c pairs that produce the same XOR, 
+we calculate the number of ways to choose 2 pairs from (which can form valid rectangles) 
+using the formula C(c,2)=c*(c-1)/2.
+
+Since each valid rectangle can be arranged in 4 ways, we multiply the count by 4. 
+i.e count * 2 * 4.
+
+Note- Using hashmap gives TLE
+*/
+
+
+/* SOLUTION USING 24! */
+import java.util.*;
+class Codechef {
+    public static void main (String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int arr[] = new int[n];
+            for (int i = 0; i < n; i++){
+                arr[i] = sc.nextInt();
+            }
+            int maxXORValue = (1 << 20) + 5;    //from constraints
+            int[] count = new int[maxXORValue]; //frequency of pair of xor's
+            long ans=0;
+            for(int i=0; i<n; i++){
+                for(int j=i+1; j<n; j++){    //we want all pairs
+                    ans += count[arr[i]^arr[j]];
+                }
+                for(int j=0;j<i;j++){
+                    count[arr[i]^arr[j]]++;
+                }
+            }
+            System.out.println(ans*(long)24);
+        }
+        sc.close(); 
+    }
+}
+
+/*
+ * LOGIC---
+ * We check while moving forward, whether that same xor existed in some pair or not and add it as our answer.
+ * 
+ * Finally to form pair of 4, ans*4!
+ */

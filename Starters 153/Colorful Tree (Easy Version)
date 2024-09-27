@@ -1,0 +1,75 @@
+import java.util.*;
+class Codechef{
+	public static void main (String[] args){
+		Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int numberOfNodes = sc.nextInt();
+            ArrayList <List<Integer>> adjacencyList = new ArrayList <List<Integer>>(0);
+            for (int i=0; i <=numberOfNodes; i++) {
+                adjacencyList.add(new ArrayList<>());
+            }
+            for (int i=0; i<numberOfNodes-1; i++) {
+                int nodeU = sc.nextInt();
+                int nodeV = sc.nextInt();
+                adjacencyList.get(nodeU).add(nodeV);
+                adjacencyList.get(nodeV).add(nodeU);
+            }
+            int leafNodeCount = 0;
+            for (int i=1; i<=numberOfNodes; i++) {
+                if (adjacencyList.get(i).size()==1) {
+                    leafNodeCount++;
+                }
+            }
+            int internalNodeCount = numberOfNodes - leafNodeCount;
+            int beauty = leafNodeCount*3 + internalNodeCount*2;
+            System.out.println(beauty);
+        }
+	}
+}
+
+/*
+LOGIC---
+If a node has degee 2 or more -> each child node can have B,G 
+-> we can have minimum sum as 1+1 = 2
+
+If a node has degree 1 -> one child can have G/B and next to next can have the other color 
+-> we can have mimimum sum as 1+2 or 2+1 = 3
+
+Leafnode -> beauty = 3
+Internal nodes -> beauty = 2
+
+Hence check degree of each vertex and find sum accordingly.
+
+
+APPROACH---
+STEP I : Building the Adjacency List
+    ArrayList <List<Integer>> adjacencyList = new ArrayList <List<Integer>>(0);
+    for (int i=0; i <=numberOfNodes; i++) {
+        adjacencyList.add(new ArrayList<>());
+    }
+An adjacency list is created using an ArrayList of lists. This will represent the tree.
+Each node will be represented by an index in the adjacencyList, and the list at each index will store the neighboring nodes (connections).
+The loop creates an empty list for each node.
+
+STEP II : Reading Tree Edges
+    for (int i=0; i<numberOfNodes-1; i++) {
+        int nodeU = sc.nextInt();
+        int nodeV = sc.nextInt();
+        adjacencyList.get(nodeU).add(nodeV);
+        adjacencyList.get(nodeV).add(nodeU);
+    }
+For each tree, there are numberOfNodes-1 edges (because a tree with n nodes has exactly n-1 edges).
+For each edge, two integers nodeU and nodeV are read, representing a connection between these two nodes.
+The adjacency list is updated to reflect that both nodeU and nodeV are connected to each other.
+
+
+STEP III : Counting Leaf Nodes
+int leafNodeCount = 0;
+for (int i = 1; i <= numberOfNodes; i++) {
+    if (adjacencyList.get(i).size()==1) {
+        leafNodeCount++;
+    }
+}
+
+*/
