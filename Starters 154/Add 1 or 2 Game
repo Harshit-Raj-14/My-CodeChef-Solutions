@@ -1,0 +1,39 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            if(n>1) System.out.println("BOB");
+            else System.out.println("ALICE");
+        }
+	}
+}
+
+
+/*
+LOGIC---
+Alice goes first
+x starts as 0
+BOB wins if x can be n
+x can be increased by 1 or 2.
+
+So, if x==1 Alice always wins
+If x==2 Alice can either make 1 and be 1 or directl be 2 making bob win. Bob will win in all situations
+If x==3 Alice chooses 1 or 2, Bob will still win if he chooses 2 or 1 respectively.
+
+Alice to win is if X=n+1 in the end; which in turn can only happen when X=n-1 and the current player adds 22.
+
+Of course, if X=n-1 on his turn, Bob will never add 2 - he will just add 1 and reach X=n, hence winning.
+This means Alice’s only hope of winning, is to herself receive n-1, and then add 2 to it.
+
+However, as it turns out, when n>1 Bob can always ensure that Alice doesn’t receive n-1.
+In other words, if n>1, Bob always wins!
+
+*/

@@ -1,0 +1,82 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class Codechef{
+	public static void main (String[] args) throws java.lang.Exception{
+		Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int k=sc.nextInt();
+            int arr[] = new int[n];
+            int countisk = 0;
+            int divbyk=0;
+            int equal=0;
+            int allequalcount=0;
+            for (int i = 0; i < n; i++) {
+                arr[i] = sc.nextInt();
+                if(arr[i]==k) countisk++;
+                if(arr[i]%k==0) divbyk++;
+                if(i==0) equal=arr[0];
+                if(equal==arr[i]) allequalcount++;
+            }
+            if (countisk==n) System.out.println(0); //no need to make any changes
+            else if(divbyk==n || allequalcount==n) System.out.println(1); //take gcd with k and it will make all elements k. or all elements are same so use xor
+            else{
+                int onesubarraynotk=0;  //consider sitation : [k,k,k,x,x,x,x,x,k,k,k] something like this, one xor operation is enough
+                for(int i=0;i<n;i++){
+                    if(arr[i]!=k){
+                        while(i+1<n && arr[i]==arr[i+1]) i++;
+                        onesubarraynotk++;
+                    }
+                }
+                if(onesubarraynotk==1) System.out.println(1);
+                else System.out.println(2);
+            }
+        }
+
+	}
+}
+
+
+
+
+/*
+LOGIC---
+Goal : Make all elements equal to k.
+
+A subarray with arr[i]%k==0 can be gcd with k to give us k.
+
+This leaves us with the numbers that were not a multiple of k. gcding with anything would not yield k.
+The only option left is xoring them.
+
+BUT THINK MUCH BETTER---
+What's easier is to bring all elemnts to same level
+gcd(arr[i],1)===1 set all elements to 1 with x=1
+
+So,
+First, choose L=1,R=N (i.e the entire array) and X=1, and replace every element with gcd⁡(Ai,X).
+Since X=1, this will set every element to 1.
+
+Then, choose L=1,R=N and X=1^K, and replace every element with Ai^X.
+
+Since 1^(1^K)=K (since 1^1=0), and all Ai​ are 1, this will set every element to K.
+
+We want to find the minimum number of operations, which as we now know is certainly ≤2.
+
+Case I:
+Checking whether 0 operations are required is trivial: the entire array should already be equal to K.
+
+Case II: Applying only gcd or xor
+A subarray with arr[i]%k==0 can be gcd with k to give us k.
+
+All elements are same and not equal to k. We can use a xor operation to make all elements equal.
+
+All elements are k and there is a single subarray where all elements are equal and not equal to k. We cna use xor to make that subarray equal to k.
+
+Case III: all other cases minimum 2 operations used.
+
+FINAL THOUGHTS---
+Any array can be made equal to k in at most 2 operations as in one operation make all array to 1 taking gcd with 1.
+in other operation take xor and make all equal to k
+*/
