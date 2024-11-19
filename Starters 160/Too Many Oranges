@@ -1,0 +1,56 @@
+/* OPTIMISED MATHS O(1) */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        long t = sc.nextLong();
+        while (t-- > 0) {
+            long n = sc.nextLong();
+            long k = sc.nextLong();
+            long mn = 10 * n, mx = 12 * n;
+            if (k >= mn && k <= mx) System.out.println("YES");
+            else System.out.println("NO");
+        }
+        sc.close();
+    }
+}
+
+
+/*
+LOGIC---
+Calculate the possible range of slices Chef could eat by multiplying the number of oranges N by 10 and 12 for minimum and maximum slices. 
+If the target K was within this range, Chef could have eaten exactly K slices, so I returned "YES"; otherwise, "NO". 
+This quick check handles the constraints efficiently.
+*/
+
+/* DP APPROACH */
+import java.util.*;
+
+class Codechef {
+    static Map<String, Boolean> memo = new HashMap<>();
+
+    public static void main(String[] args) throws java.lang.Exception {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-- > 0) {
+            int n = sc.nextInt();
+            int k = sc.nextInt();
+            memo.clear();  
+            if (solve(n, k)) System.out.println("YES");
+            else System.out.println("NO");
+        }
+    }
+
+    public static boolean solve(int n, int k) {
+        if (n == 0 && k == 0) return true;
+        if (n < 0 || k < 0) return false;
+
+        String key = n + "," + k;
+        if (memo.containsKey(key)) return memo.get(key);
+
+        boolean ans = solve(n - 1, k - 10) || solve(n - 1, k - 11) || solve(n - 1, k - 12);
+        memo.put(key, ans);
+
+        return ans;
+    }
+}

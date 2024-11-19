@@ -1,0 +1,89 @@
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        long t = sc.nextLong();
+        while (t-- > 0) {
+            long n = sc.nextLong();
+            long m = sc.nextLong();
+            String s = sc.next();
+            String t = sc.next();
+            long sa = 0, sb = 0, ta = 0, tb = 0;    //count of a and b in s and t
+            for (char i : s.toCharArray()) {
+                if (i == 'a') sa++;
+                else sb++;
+            }
+            for (char i : t.toCharArray()) {
+                if (i == 'a') ta++;
+                else tb++;
+            }
+            long sfa = -1, tfa = -1;    //first occurence of a in s and t
+            for (int i = 0; i < n; i++) {
+                if (s.charAt(i) == 'a') {
+                    sfa = i;
+                    break;
+                }
+            }
+            for (int i = 0; i < m; i++) {
+                if (t.charAt(i) == 'a') {
+                    tfa = i;
+                    break;
+                }
+            }
+            if (sfa != tfa){
+                System.out.println("NO");
+                continue;
+            }
+            if (sa == ta){
+                if (sa == 0) System.out.println((sb == tb) ? "YES" : "NO");
+                else System.out.println("YES");
+            } 
+            else System.out.println("NO");
+        }
+        sc.close();
+    }
+}
+
+/*
+LOGIC---
+Check count of a and b and first occurences of a in both the strings. 
+If count of a is not same or first occurance is not same then it is impossible 
+otherwise it is always possible
+*/
+
+
+/* ANOTHER APPROACH */
+import java.util.*;
+class Codechef{
+	public static void main (String[] args){
+		Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt();
+        while (T-- > 0) {
+            int n = sc.nextInt();
+            int m = sc.nextInt();
+            String s = sc.next();
+            String t = sc.next();
+            if(s.indexOf('a')==-1 || t.indexOf('a')==-1){
+                if(s.equals(t)) System.out.println("YES");
+                else System.out.println("NO");
+            }
+            else{
+                if(solve(s).equals(solve(t))) System.out.println("YES");
+                else System.out.println("NO");
+            }
+        }
+	}
+	
+	public static String solve(String s){       //reduce string by replacing ab with a
+        StringBuilder sb = new StringBuilder();
+        for (char c : s.toCharArray()){
+            sb.append(c);
+            int len = sb.length();
+            if(sb.length()>=2 && sb.charAt(sb.length()-2)=='a' && sb.charAt(sb.length()-1)=='b'){   //check for presence of ab
+                sb.deleteCharAt(sb.length() - 1);  // Replace "ab" with "a" -> Remove 'b' and 'a' remains
+            }
+        }
+        return sb.toString();
+    }
+}
+
